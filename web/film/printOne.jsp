@@ -16,12 +16,6 @@
     <%
         request.setCharacterEncoding("utf-8");
 
-        /* 로그인 정보가 존재하지 않을 시 index 페이지 이동 */
-        UserDTO login = (UserDTO) session.getAttribute("login");
-        if (login == null) {
-            response.sendRedirect("/index.jsp");
-        }
-
         int id = Integer.parseInt(request.getParameter("id"));
 
         ConnectionMaker connectionMaker = new MySqlConnectionMaker();
@@ -29,7 +23,6 @@
 
         FilmDTO filmDTO = filmController.selectById(id);
         pageContext.setAttribute("film", filmDTO);
-        pageContext.setAttribute("login", login);
     %>
     <title>영화 : ${film.title}</title>
     <link href="../resource/img/filmicongreen.svg" rel="shortcut icon" type="image/x-icon">
@@ -66,18 +59,25 @@
                         <hr class="mt-5">
                         <h4 class="blog-post-title">리뷰</h4>
                         <div class="col-6">
-                            <form method="post">
-                                <select class="form-select" id="rating" name="rating">
-                                    <option value="1">★☆☆☆☆</option>
-                                    <option value="2">★★☆☆☆</option>
-                                    <option value="3">★★★☆☆</option>
-                                    <option value="4">★★★★☆</option>
-                                    <option value="5">★★★★★</option>
-                                </select>
-                                <c:if test="${login.grade == 2}">
-                                    <textarea id="review" name="review" placeholder="평론을 작성해주세요."></textarea>
-                                </c:if>
-                            </form>
+                            <c:choose>
+                                <c:when test="${login == null}">
+                                    로그인 후 리뷰를 남겨보세요.
+                                </c:when>
+                                <c:otherwise>
+                                    <form method="post">
+                                        <select class="form-select" id="rating" name="rating">
+                                            <option value="1">★☆☆☆☆</option>
+                                            <option value="2">★★☆☆☆</option>
+                                            <option value="3">★★★☆☆</option>
+                                            <option value="4">★★★★☆</option>
+                                            <option value="5">★★★★★</option>
+                                        </select>
+                                        <c:if test="${login.grade == 2}">
+                                            <textarea id="review" name="review" placeholder="평론을 작성해주세요."></textarea>
+                                        </c:if>
+                                    </form>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </article>
                 </div>

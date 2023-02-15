@@ -27,6 +27,15 @@
     <link rel="stylesheet" type="text/css" href="/resource/css/main.css"/>
 </head>
 <body>
+<script>
+    function checkDelete() {
+        let result = confirm("정말로 탈퇴하시겠습니까?");
+
+        if (result) {
+            location.href = "/user/delete.jsp?id" + ${login.id};
+        }
+    }
+</script>
 <div class="container-fluid">
     <div class="container">
         <%@include file="../header.jsp" %>
@@ -67,10 +76,10 @@
                 <div class="col-md-4">
                     <ul>
                         <li>
-                            <div class="btn btn-outline-success btn-sm mb-2" onclick="location.href='#'">회원 정보 수정</div>
+                            <div class="btn btn-outline-success btn-sm mb-2" onclick="location.href='/user/update.jsp'">회원 정보 수정</div>
                         </li>
                         <li>
-                            <div class="btn btn-outline-danger btn-sm mb-2" onclick="location.href='#'">회원 탈퇴</div>
+                            <div class="btn btn-outline-danger btn-sm mb-2" onclick="checkDelete()">회원 탈퇴</div>
                         </li>
                     </ul>
                 </div>

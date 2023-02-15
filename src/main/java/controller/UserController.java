@@ -100,6 +100,7 @@ public class UserController {
                 u = new UserDTO();
                 u.setId(resultSet.getInt("id"));
                 u.setUsername(resultSet.getString("username"));
+                u.setPassword(resultSet.getString("password"));
                 u.setNickname(resultSet.getString("nickname"));
                 u.setGrade(resultSet.getInt("grade"));
             }

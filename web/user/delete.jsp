@@ -4,8 +4,8 @@
 <%@ page import="model.UserDTO" %><%--
   Created by IntelliJ IDEA.
   User: USER
-  Date: 2023-02-13
-  Time: 오후 3:15
+  Date: 2023-02-15
+  Time: 오전 11:27
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -17,23 +17,20 @@
 <%
     request.setCharacterEncoding("utf-8");
     ConnectionMaker connectionMaker = new MySqlConnectionMaker();
-    UserController controller = new UserController(connectionMaker);
+    UserController userController = new UserController(connectionMaker);
 
-    String username = request.getParameter("username");
-    String password = request.getParameter("password");
+    UserDTO login = (UserDTO) session.getAttribute("login");
 
-    UserDTO userDTO = controller.auth(username, password);
-
-    String address;
-
-    if (userDTO == null) {
-        address = "/user/login.jsp";
-    } else {
-        address = "/index.jsp";
-        session.setAttribute("login", userDTO);
+    if (login == null) {
+        response.sendRedirect("/user/login.jsp");
     }
 
-    response.sendRedirect(address);
+    userController.delete(login.getId());
+    session.invalidate();
 %>
+<script>
+    alert("정상적으로 탈퇴되었습니다.");
+    location.href = "../index.jsp";
+</script>
 </body>
 </html>
