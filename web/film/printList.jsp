@@ -37,7 +37,7 @@
 %>
 <div class="container-fluid">
     <div class="container">
-        <%@include file="/header.jsp"%>
+        <%@include file="../header.jsp"%>
         <c:choose>
             <c:when test="${empty filmList}">
                 <div>
@@ -73,7 +73,7 @@
                 </c:forEach>
             </c:otherwise>
         </c:choose>
-        <%@ include file="/footer.jsp"%>
+        <%@ include file="../footer.jsp"%>
     </div>
 </div>
 </body>

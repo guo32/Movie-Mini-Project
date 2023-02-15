@@ -29,7 +29,7 @@
     if (userDTO == null) {
         address = "/index.jsp";
     } else {
-        address = "/movie/printList.jsp";
+        address = "/film/printList.jsp";
         session.setAttribute("login", userDTO);
     }
 

@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class MySqlConnectionMaker implements ConnectionMaker {
 
-    private final String ADDRESS = "jdbc:mysql://localhost/movie";
-    private final String USERNAME = "root";
-    private final String PASSWORD = "1234";
+    private final String ADDRESS = "";
+    private final String USERNAME = "";
+    private final String PASSWORD = "";
     @Override
     public Connection makeConnection() {
         try {
