@@ -38,6 +38,9 @@
 <div class="container-fluid">
     <div class="container">
         <%@include file="../header.jsp"%>
+        <c:if test="${login != null && login.grade == 3}">
+            <button class="btn btn-outline-success btn-sm mb-2" onclick="location.href='/film/register.jsp'">영화 등록하기</button>
+        </c:if>
         <c:choose>
             <c:when test="${empty filmList}">
                 <div>
@@ -55,7 +58,7 @@
                                     <a href="/film/printOne.jsp?id=${film.id}" class="stretched-link">상세보기</a>
                                 </div>
                                 <div class="col-auto d-none d-lg-block">
-                                    <svg class="bd-placeholder-img" width="200" height="250" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                    <svg class="bd-placeholder-img" width="150" height="200" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
                                         <c:choose>
                                             <c:when test="${film.poster == null}">
                                                 <rect width="100%" height="100%" fill="#0d0d0d"></rect>
@@ -71,6 +74,25 @@
                         </div>
                     </div>
                 </c:forEach>
+                <div class="d-flex justify-content-center">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&lt;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&gt;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </c:otherwise>
         </c:choose>
         <%@ include file="../footer.jsp"%>

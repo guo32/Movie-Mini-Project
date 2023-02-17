@@ -10,3 +10,34 @@
     text-decoration: none;
     list-style: none;
 }
+
+.content-mini-box {
+    background-color: #FFFFFF;
+}
+
+.swiper {
+    width: 100%;
+    height: 250px;
+    margin-bottom: 1.5em;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4%;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #736055 !important;
+}

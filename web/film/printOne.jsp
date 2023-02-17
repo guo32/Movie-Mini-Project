@@ -40,6 +40,15 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/resource/css/main.css"/>
 </head>
+<script>
+    function checkDelete() {
+        let result = confirm("영화 <${film.title}>을(를) 정말로 삭제하시겠습니까?");
+
+        if(result) {
+            location.href = "/film/delete.jsp?id=" + ${film.id};
+        }
+    }
+</script>
 <body>
 <div class="container-fluid">
     <div class="container">
@@ -48,6 +57,12 @@
             <div class="row g-5">
                 <!-- 자세한 정보 -->
                 <div class="col-md-8 mb-5">
+                    <c:if test="${login != null && login.grade == 3}">
+                        <div class="mb-2">
+                            <button class="badge bg-success fw-light border-0">수정</button>
+                            <button class="badge bg-danger fw-light border-0" onclick="checkDelete()">삭제</button>
+                        </div>
+                    </c:if>
                     <article class="blog-post">
                         <h2 class="blog-post-title">${film.title}</h2>
                         <hr>
@@ -85,6 +100,9 @@
                                         <c:when test="${validateRegister == false}">
                                             이미 평점을 남겼습니다.
                                         </c:when>
+                                        <c:when test="${login.grade == 3}">
+                                            관리자는 평점을 남길 수 없습니다.
+                                        </c:when>
                                         <c:otherwise>
                                             <form action="../review/write_action.jsp?film_id=<%=id%>" method="post">
                                                 <table>
@@ -101,12 +119,16 @@
                                                         <c:choose>
                                                             <c:when test="${login.grade == 1}">
                                                                 <td>
-                                                                    <button type="submit" class="btn btn-outline-success mx-2">등록</button>
+                                                                    <button type="submit"
+                                                                            class="btn btn-outline-success mx-2">등록
+                                                                    </button>
                                                                 </td>
                                                             </c:when>
                                                             <c:when test="${login.grade == 2}">
                                                                 <td rowspan="2">
-                                                                    <button type="submit" class="btn btn-outline-success mx-2">등록</button>
+                                                                    <button type="submit"
+                                                                            class="btn btn-outline-success mx-2">등록
+                                                                    </button>
                                                                 </td>
                                                             </c:when>
                                                         </c:choose>
@@ -114,7 +136,9 @@
                                                     <tr>
                                                         <td>
                                                             <c:if test="${login.grade == 2}">
-                                                                <textarea class="form-control mt-2" id="review_content" name="review_content" placeholder="평론을 작성해주세요."></textarea>
+                                                                <textarea class="form-control mt-2" id="review_content"
+                                                                          name="review_content"
+                                                                          placeholder="평론을 작성해주세요."></textarea>
                                                             </c:if>
                                                         </td>
                                                     </tr>
@@ -141,7 +165,8 @@
                                         </tr>
                                         <tr>
                                             <td class="text-center">
-                                                <b class="fs-4"><fmt:formatNumber value="${ratingAverage}" pattern="0.0#/5"/></b>
+                                                <b class="fs-4"><fmt:formatNumber value="${ratingAverage}"
+                                                                                  pattern="0.0#/5"/></b>
                                             </td>
                                         </tr>
                                         <tr>
@@ -173,9 +198,10 @@
                                                 <td>
                                                     <c:if test="${review.writer_id == login.id}">
                                                         <span class="badge bg-success fw-light">수정</span>
-                                                        <span class="badge bg-danger fw-light" onclick="if(confirm('정말로 삭제하시겠습니까?')) {
-                                                            location.href='../review/delete_action.jsp?id=' + ${review.id} + '&film_id=' + <%=id%>;
-                                                        }">삭제</span>
+                                                        <span class="badge bg-danger fw-light"
+                                                              onclick="if(confirm('정말로 삭제하시겠습니까?')) {
+                                                                      location.href='../review/delete_action.jsp?id=' + ${review.id} + '&film_id=' + <%=id%>;
+                                                                      }">삭제</span>
                                                     </c:if>
                                                 </td>
                                             </tr>
@@ -185,7 +211,10 @@
                                                 </tr>
                                             </c:if>
                                             <tr>
-                                                <td class="fw-light text-muted" style="font-size: 0.8em" colspan="2">${userController.selectNicknameById(review.writer_id)} | <fmt:formatDate value="${review.entry_date}" pattern="YYYY.MM.dd hh:mm"/></td>
+                                                <td class="fw-light text-muted" style="font-size: 0.8em"
+                                                    colspan="2">${userController.selectNicknameById(review.writer_id)} |
+                                                    <fmt:formatDate value="${review.entry_date}"
+                                                                    pattern="YYYY.MM.dd hh:mm"/></td>
                                             </tr>
                                         </table>
                                     </div>

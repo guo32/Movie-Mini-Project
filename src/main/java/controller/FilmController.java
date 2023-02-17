@@ -35,6 +35,39 @@ public class FilmController {
         return true;
     }
 
+    public void update(FilmDTO filmDTO) {
+        String query = "UPDATE `film` SET `title` = ?, `description` = ?, `director` = ?, `rating` = ?, `poster` = ? WHERE `id` = ?";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, filmDTO.getTitle());
+            pstmt.setString(2, filmDTO.getDescription());
+            pstmt.setString(3, filmDTO.getDirector());
+            pstmt.setString(4, filmDTO.getRating());
+            pstmt.setString(5, filmDTO.getPoster());
+            pstmt.setInt(6, filmDTO.getId());
+
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(int id) {
+        String query = "DELETE FROM `film` WHERE `id` = ?";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, id);
+
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public FilmDTO selectById(int id) {
         FilmDTO filmDTO = null;
         String query = "SELECT * FROM `film` WHERE `id` = ?";
@@ -62,7 +95,7 @@ public class FilmController {
 
     public ArrayList<FilmDTO> selectAll() {
         ArrayList<FilmDTO> list = new ArrayList<>();
-        String query = "SELECT * FROM `film`";
+        String query = "SELECT * FROM `film` ORDER BY `id` DESC";
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(query);
