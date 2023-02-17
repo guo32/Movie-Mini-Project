@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 public class ScreenInformationDTO {
     private int id;
     private int cinema_id;
+    private int theater_id;
     private int film_id;
     private Timestamp start_time;
     private Timestamp end_time;

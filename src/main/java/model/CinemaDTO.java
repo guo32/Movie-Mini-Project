@@ -8,7 +8,7 @@ public class CinemaDTO {
     private String name;
     private String country;
     private String autonomous_district;
-    private String administrative_district;
     private String detailed_address;
     private String phone;
+    private String image;
 }
