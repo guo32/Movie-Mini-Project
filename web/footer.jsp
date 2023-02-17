@@ -2,7 +2,7 @@
 <footer class="blog-footer border-top">
   <div class="text-center mt-3">
     <p>
-      <a href="https://github.com/guo32" style="text-decoration: none">[github] guo32</a>
+      <a href="https://github.com/guo32" style="text-decoration: none" target="_blank">[github] guo32</a>
     </p>
     <p>
       <a href="#" class="btn btn-outline-secondary" style="text-decoration: none">Back to top</a>

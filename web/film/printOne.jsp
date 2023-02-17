@@ -2,7 +2,11 @@
 <%@ page import="controller.FilmController" %>
 <%@ page import="dbConn.MySqlConnectionMaker" %>
 <%@ page import="dbConn.ConnectionMaker" %>
-<%@ page import="model.FilmDTO" %><%--
+<%@ page import="model.FilmDTO" %>
+<%@ page import="controller.ReviewController" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.ReviewDTO" %>
+<%@ page import="controller.UserController" %><%--
   Created by IntelliJ IDEA.
   User: USER
   Date: 2023-02-14
@@ -11,6 +15,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <%
@@ -56,29 +61,137 @@
                         <h4 class="blog-post-title">줄거리</h4>
                         <p>${film.description}</p>
                         <!-- 평점 -->
+                        <%
+                            UserController userController = new UserController(connectionMaker);
+                            ReviewController reviewController = new ReviewController(connectionMaker);
+                            ArrayList<ReviewDTO> reviewList = reviewController.selectByFilmId(id);
+
+                            pageContext.setAttribute("reviewList", reviewList);
+                            pageContext.setAttribute("userController", userController);
+                            pageContext.setAttribute("ratingAverage", reviewController.calculateRatingAverageByFilmId(id));
+                            if (login != null) {
+                                pageContext.setAttribute("validateRegister", reviewController.validateRegisterReview(id, login.getId()));
+                            }
+                        %>
                         <hr class="mt-5">
                         <h4 class="blog-post-title">리뷰</h4>
-                        <div class="col-6">
+                        <div class="col-12">
                             <c:choose>
                                 <c:when test="${login == null}">
                                     로그인 후 리뷰를 남겨보세요.
                                 </c:when>
                                 <c:otherwise>
-                                    <form method="post">
-                                        <select class="form-select" id="rating" name="rating">
-                                            <option value="1">★☆☆☆☆</option>
-                                            <option value="2">★★☆☆☆</option>
-                                            <option value="3">★★★☆☆</option>
-                                            <option value="4">★★★★☆</option>
-                                            <option value="5">★★★★★</option>
-                                        </select>
-                                        <c:if test="${login.grade == 2}">
-                                            <textarea id="review" name="review" placeholder="평론을 작성해주세요."></textarea>
-                                        </c:if>
-                                    </form>
+                                    <c:choose>
+                                        <c:when test="${validateRegister == false}">
+                                            이미 평점을 남겼습니다.
+                                        </c:when>
+                                        <c:otherwise>
+                                            <form action="../review/write_action.jsp?film_id=<%=id%>" method="post">
+                                                <table>
+                                                    <tr>
+                                                        <td class="col-10">
+                                                            <select class="form-select" id="rating" name="rating">
+                                                                <option value="1">★☆☆☆☆</option>
+                                                                <option value="2">★★☆☆☆</option>
+                                                                <option value="3">★★★☆☆</option>
+                                                                <option value="4">★★★★☆</option>
+                                                                <option value="5">★★★★★</option>
+                                                            </select>
+                                                        </td>
+                                                        <c:choose>
+                                                            <c:when test="${login.grade == 1}">
+                                                                <td>
+                                                                    <button type="submit" class="btn btn-outline-success mx-2">등록</button>
+                                                                </td>
+                                                            </c:when>
+                                                            <c:when test="${login.grade == 2}">
+                                                                <td rowspan="2">
+                                                                    <button type="submit" class="btn btn-outline-success mx-2">등록</button>
+                                                                </td>
+                                                            </c:when>
+                                                        </c:choose>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <c:if test="${login.grade == 2}">
+                                                                <textarea class="form-control mt-2" id="review_content" name="review_content" placeholder="평론을 작성해주세요."></textarea>
+                                                            </c:if>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </form>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </c:otherwise>
                             </c:choose>
                         </div>
+                        <c:choose>
+                            <c:when test="${empty reviewList}">
+                                <div class="shadow-sm rounded p-2 mt-2" style="background-color: #F2F2F2">
+                                    아직 등록된 리뷰가 없습니다.
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="shadow-sm rounded p-2 mt-2 col-4" style="background-color: #F2F2F2">
+                                    <table class="table table-borderless">
+                                        <tr>
+                                            <td class="text-center">
+                                                전체 평점 평균
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">
+                                                <b class="fs-4"><fmt:formatNumber value="${ratingAverage}" pattern="0.0#/5"/></b>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center fs-5" style="color: #898C2B">
+                                                <c:choose>
+                                                    <c:when test="${ratingAverage < 2}">★</c:when>
+                                                    <c:when test="${ratingAverage < 3}">★★</c:when>
+                                                    <c:when test="${ratingAverage < 4}">★★★</c:when>
+                                                    <c:when test="${ratingAverage < 5}">★★★★</c:when>
+                                                    <c:when test="${ratingAverage == 5}">★★★★★</c:when>
+                                                </c:choose>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <c:forEach var="review" items="${reviewList}">
+                                    <div class="shadow-sm rounded p-2 mt-3" style="background-color: #F2F2F2">
+                                        <table class="table table-borderless">
+                                            <tr>
+                                                <td class="col-10" style="color: #898C2B">
+                                                    <c:choose>
+                                                        <c:when test="${review.rating == 1}">★☆☆☆☆ 1</c:when>
+                                                        <c:when test="${review.rating == 2}">★★☆☆☆ 2</c:when>
+                                                        <c:when test="${review.rating == 3}">★★★☆☆ 3</c:when>
+                                                        <c:when test="${review.rating == 4}">★★★★☆ 4</c:when>
+                                                        <c:when test="${review.rating == 5}">★★★★★ 5</c:when>
+                                                    </c:choose>
+                                                </td>
+                                                <td>
+                                                    <c:if test="${review.writer_id == login.id}">
+                                                        <span class="badge bg-success fw-light">수정</span>
+                                                        <span class="badge bg-danger fw-light" onclick="if(confirm('정말로 삭제하시겠습니까?')) {
+                                                            location.href='../review/delete_action.jsp?id=' + ${review.id} + '&film_id=' + <%=id%>;
+                                                        }">삭제</span>
+                                                    </c:if>
+                                                </td>
+                                            </tr>
+                                            <c:if test="${review.review_content != null}">
+                                                <tr>
+                                                    <td colspan="2">${review.review_content}</td>
+                                                </tr>
+                                            </c:if>
+                                            <tr>
+                                                <td class="fw-light text-muted" style="font-size: 0.8em" colspan="2">${userController.selectNicknameById(review.writer_id)} | <fmt:formatDate value="${review.entry_date}" pattern="YYYY.MM.dd hh:mm"/></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
                     </article>
                 </div>
                 <!-- 간단한 정보 -->

@@ -113,6 +113,26 @@ public class UserController {
         return u;
     }
 
+    public String selectNicknameById(int id) {
+        String nickname = null;
+        String query = "SELECT `nickname` FROM `user` WHERE `id` = ?";
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, id);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                nickname = resultSet.getString("nickname");
+            }
+
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nickname;
+    }
+
     public UserDTO auth(String username, String password) {
         String query = "SELECT * FROM `user` WHERE `username` = ? AND `password` = ?";
         try {
