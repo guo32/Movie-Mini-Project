@@ -34,8 +34,37 @@
     ConnectionMaker connectionMaker = new MySqlConnectionMaker();
     CinemaController cinemaController = new CinemaController(connectionMaker);
 
-    ArrayList<CinemaDTO> cinemaList = cinemaController.selectAll();
+    int pageNo;
+    try {
+        String pageStr = request.getParameter("pageNo");
+        pageNo = Integer.parseInt(pageStr);
+    } catch (Exception e) {
+        pageNo = 1;
+    }
+
+    ArrayList<CinemaDTO> cinemaList = cinemaController.selectAll(pageNo);
+
+    int totalPage = cinemaController.countTotalPage();
+    int startNum;
+    int endNum;
+    if (pageNo <= 3) {
+        startNum = 1;
+        endNum = 5;
+    } else if (pageNo > totalPage - 3) {
+        startNum = totalPage - 4;
+        endNum = totalPage;
+    } else if (totalPage <= 5) {
+        startNum = 1;
+        endNum = totalPage;
+    } else {
+        startNum = pageNo - 2;
+        endNum = pageNo + 2;
+    }
     pageContext.setAttribute("cinemaList", cinemaList);
+    pageContext.setAttribute("currentPage", pageNo);
+    pageContext.setAttribute("startPage", startNum);
+    pageContext.setAttribute("endPage", endNum);
+    pageContext.setAttribute("totalPage", totalPage);
 %>
 <div class="container-fluid">
     <div class="container">
@@ -53,7 +82,8 @@
                             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-m d-250 position-relative">
                                 <div class="col p-3 d-flex flex-column position-static">
                                     <p class="card-text mb-auto text-muted"><b class="fs-5 mx-2 mt-1 text-dark">
-                                        ${cinema.name}</b> ${cinema.country} ${cinema.autonomous_district} ${cinema.detailed_address} | ${cinema.phone}
+                                            ${cinema.name}</b> ${cinema.country} ${cinema.autonomous_district} ${cinema.detailed_address}
+                                        | ${cinema.phone}
                                     </p>
                                     <a href="/cinema/printOne.jsp?id=${cinema.id}" class="stretched-link"></a>
                                 </div>
@@ -61,6 +91,40 @@
                         </div>
                     </div>
                 </c:forEach>
+                <div class="d-flex justify-content-center">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a href="/cinema/printList.jsp?pageNo=${1}" class="page-link">
+                                    <span>&laquo;</span>
+                                </a>
+                            </li>
+                            <c:forEach begin="${startPage}" end="${endPage}" var="i">
+                                <c:choose>
+                                    <c:when test="${currentPage eq i}">
+                                        <li class="page-item active">
+                                            <a href="/cinema/printList.jsp?pageNo=${i}" class="page-link">
+                                                <span>${i}</span>
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="page-item">
+                                            <a href="/cinema/printList.jsp?pageNo=${i}" class="page-link">
+                                                <span>${i}</span>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                            <li class="page-item">
+                                <a href="/cinema/printList.jsp?pageNo=${totalPage}" class="page-link">
+                                    <span>&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </c:otherwise>
         </c:choose>
         <%@ include file="../footer.jsp" %>

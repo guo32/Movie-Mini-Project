@@ -41,3 +41,17 @@
 .swiper-pagination-bullet-active {
     background-color: #736055 !important;
 }
+
+.page-link {
+    color: #736055;
+}
+
+.active>.page-link {
+    color: #FFFFFF !important;
+    background-color: #736055 !important;
+    border-color: #736055;
+}
+
+.active>.page-link:hover {
+    color: #FFFFFF !important;
+}

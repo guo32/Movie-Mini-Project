@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class CinemaController {
     private Connection connection;
+    private final int PAGE_SIZE = 6;
 
     public CinemaController(ConnectionMaker connectionMaker) {
         connection = connectionMaker.makeConnection();
@@ -73,12 +74,14 @@ public class CinemaController {
         return cinemaDTO;
     }
 
-    public ArrayList<CinemaDTO> selectAll() {
+    public ArrayList<CinemaDTO> selectAll(int pageNo) {
         ArrayList<CinemaDTO> list = new ArrayList<>();
-        String query = "SELECT * FROM `cinema`";
+        String query = "SELECT * FROM `cinema` ORDER BY `name` LIMIT ?, ?";
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, (pageNo - 1) * PAGE_SIZE);
+            pstmt.setInt(2, PAGE_SIZE);
             ResultSet resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
@@ -101,5 +104,32 @@ public class CinemaController {
         }
 
         return list;
+    }
+
+    public int countTotalPage() {
+        int totalPage = 0;
+        String query = "SELECT COUNT(*) FROM `cinema`";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            ResultSet resultSet = pstmt.executeQuery();
+
+            int count = 0;
+            if (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+
+            totalPage = count / PAGE_SIZE;
+            if (count % PAGE_SIZE != 0) {
+                totalPage++;
+            }
+
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return totalPage;
     }
 }
