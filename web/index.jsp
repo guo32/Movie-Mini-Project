@@ -80,8 +80,8 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="col-12 bg-light p-3 rounded shadow-sm my-2">
-                            <h4 class="mb-3">영화</h4>
-                            <c:forEach var="film" items="${filmList}">
+                            <h4 class="mb-3" onclick="location.href='/film/printList.jsp'">영화</h4>
+                            <c:forEach var="film" items="${filmList}" begin="0" end="4">
                                 <div class="row">
                                     <div class="col mb-6">
                                         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-m d-250 position-relative">
@@ -111,7 +111,7 @@
                     </div>
                     <div class="col-6">
                         <div class="col-12 bg-light p-3 rounded shadow-sm my-2">
-                            <h4 class="mb-3">극장</h4>
+                            <h4 class="mb-3" onclick="location.href='/cinema/printList.jsp'">극장</h4>
                             <c:choose>
                                 <c:when test="${empty cinemaList}">
                                     <div>
@@ -119,7 +119,7 @@
                                     </div>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:forEach var="cinema" items="${cinemaList}">
+                                    <c:forEach var="cinema" items="${cinemaList}" begin="0" end="5">
                                         <div class="row">
                                             <div class="col mb-6">
                                                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-m d-250 position-relative">

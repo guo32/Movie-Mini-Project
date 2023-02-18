@@ -29,8 +29,9 @@
     ConnectionMaker connectionMaker = new MySqlConnectionMaker();
     FilmController filmController = new FilmController(connectionMaker);
 
-    String realFolder = application.getRealPath("/resource/img");
-    int maxSize = 5 * 1024 * 1024;
+    // String realFolder = application.getRealPath("/resource/img");
+    String realFolder = request.getSession().getServletContext().getRealPath("/resource/img");
+    int maxSize = 10 * 1024 * 1024;
     String encType = "UTF-8";
 
     MultipartRequest multi = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy());

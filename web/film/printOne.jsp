@@ -59,7 +59,7 @@
                 <div class="col-md-8 mb-5">
                     <c:if test="${login != null && login.grade == 3}">
                         <div class="mb-2">
-                            <button class="badge bg-success fw-light border-0">수정</button>
+                            <button class="badge bg-success fw-light border-0" onclick="location.href='/film/update.jsp?id=${film.id}'">수정</button>
                             <button class="badge bg-danger fw-light border-0" onclick="checkDelete()">삭제</button>
                         </div>
                     </c:if>

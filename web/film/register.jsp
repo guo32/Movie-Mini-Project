@@ -43,7 +43,7 @@
         <form action="/film/register_logic.jsp" method="post" enctype="multipart/form-data">
             <main class="container">
                 <div class="row g-5">
-                    <!-- 자세한 정보 -->
+                    <!-- 영화 기본 정보 입력 -->
                     <div class="col-md-8 mb-5">
                         <article class="blog-post">
                             <h2 class="blog-post-title">
@@ -82,11 +82,11 @@
                             </div>
                             <div class="text-center mt-2">
                                 <button type="submit" class="btn btn-outline-success">등록</button>
-                                <button class="btn btn-outline-danger">취소</button>
+                                <div class="btn btn-outline-danger" onclick="location.href='/film/printList.jsp'">취소</div>
                             </div>
                         </article>
                     </div>
-                    <!-- 간단한 정보 -->
+                    <!-- 포스터 이미지 불러오기 -->
                     <div class="col-md-4">
                         <div class="position-sticky">
                             <div class="p-4 mb-3 rounded shadow-sm" style="background-color: #f2f2f2">
