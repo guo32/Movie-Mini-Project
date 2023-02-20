@@ -10,7 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class FilmController {
-    Connection connection;
+    private Connection connection;
+    private final int PAGE_SIZE = 5;
 
     public FilmController(ConnectionMaker connectionMaker) {
         connection = connectionMaker.makeConnection();
@@ -93,12 +94,14 @@ public class FilmController {
         return filmDTO;
     }
 
-    public ArrayList<FilmDTO> selectAll() {
+    public ArrayList<FilmDTO> selectAll(int pageNo) {
         ArrayList<FilmDTO> list = new ArrayList<>();
-        String query = "SELECT * FROM `film` ORDER BY `id` DESC";
+        String query = "SELECT * FROM `film` ORDER BY `id` DESC LIMIT ?, ?";
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, (pageNo - 1) * PAGE_SIZE);
+            pstmt.setInt(2, PAGE_SIZE);
             ResultSet resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
@@ -119,5 +122,32 @@ public class FilmController {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public int countTotalPage() {
+        int totalPage = 0;
+        String query = "SELECT COUNT(*) FROM `film`";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            ResultSet resultSet = pstmt.executeQuery();
+
+            int count = 0;
+            if (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+
+            totalPage = count / PAGE_SIZE;
+            if (count % PAGE_SIZE != 0) {
+                totalPage++;
+            }
+
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return totalPage;
     }
 }

@@ -37,7 +37,7 @@
     FilmController filmController = new FilmController(connectionMaker);
     CinemaController cinemaController = new CinemaController(connectionMaker);
 
-    ArrayList<FilmDTO> filmList = filmController.selectAll();
+    ArrayList<FilmDTO> filmList = filmController.selectAll(1);
     ArrayList<CinemaDTO> cinemaList = cinemaController.selectAll(1);
 
     pageContext.setAttribute("cinemaList", cinemaList);
