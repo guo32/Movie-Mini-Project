@@ -16,6 +16,24 @@ public class TheaterController {
         connection = connectionMaker.makeConnection();
     }
 
+    public boolean insert(TheaterDTO theaterDTO) {
+        String query = "INSERT INTO `theater`(`cinema_id`, `name`, `capacity`) VALUES(?, ?, ?)";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, theaterDTO.getCinema_id());
+            pstmt.setString(2, theaterDTO.getName());
+            pstmt.setInt(3, theaterDTO.getCapacity());
+
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException e) {
+            return false;
+        }
+
+        return true;
+    }
+
     public TheaterDTO selectById(int id) {
         TheaterDTO theaterDTO = null;
         String query = "SELECT * FROM `theater` WHERE `id` = ?";

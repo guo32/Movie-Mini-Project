@@ -38,11 +38,37 @@ public class CinemaController {
     }
 
     public void update(CinemaDTO cinemaDTO) {
+        String query = "UPDATE `cinema` SET `name` = ?, `country` = ?, `autonomous_district` = ?, `detailed_address` = ?, `phone` = ?, `image` = ? WHERE `id` = ?";
 
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, cinemaDTO.getName());
+            pstmt.setString(2, cinemaDTO.getCountry());
+            pstmt.setString(3, cinemaDTO.getAutonomous_district());
+            pstmt.setString(4, cinemaDTO.getDetailed_address());
+            pstmt.setString(5, cinemaDTO.getPhone());
+            pstmt.setString(6, cinemaDTO.getImage());
+            pstmt.setInt(7, cinemaDTO.getId());
+
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void delete(int id) {
+        String query = "DELETE FROM `cinema` WHERE `id` = ?";
 
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, id);
+
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public CinemaDTO selectById(int id) {
@@ -131,5 +157,24 @@ public class CinemaController {
         }
 
         return totalPage;
+    }
+
+    public int selectTheNewest() {
+        int result = -1;
+        String query = "SELECT `id` FROM `cinema` ORDER BY `id` DESC LIMIT 1";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                result =  resultSet.getInt("id");
+            }
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 }
