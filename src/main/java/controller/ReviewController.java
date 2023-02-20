@@ -105,6 +105,30 @@ public class ReviewController {
         return average;
     }
 
+    public double[] calculateRatingAverageArrayByFilmId(int film_id) {
+        double[] average = {0.0, 0.0};
+        String query = "";
+        for (int i = 1; i <= 2; i++) {
+            query = "SELECT AVG(`rating`) FROM `review` INNER JOIN `user` ON `review`.`writer_id` = `user`.`id` WHERE `film_id` = ? AND `grade` = " + i;
+
+            try {
+                PreparedStatement pstmt = connection.prepareStatement(query);
+                pstmt.setInt(1, film_id);
+
+                ResultSet resultSet = pstmt.executeQuery();
+                if (resultSet.next()) {
+                    average[i-1] = resultSet.getDouble(1);
+                }
+
+                resultSet.close();
+                pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return average;
+    }
+
     public boolean validateRegisterReview(int film_id, int writer_id) {
         boolean result = true;
         String query = "SELECT `id` FROM `review` WHERE `film_id` = ? AND `writer_id` = ?";

@@ -80,10 +80,12 @@
                             UserController userController = new UserController(connectionMaker);
                             ReviewController reviewController = new ReviewController(connectionMaker);
                             ArrayList<ReviewDTO> reviewList = reviewController.selectByFilmId(id);
+                            double[] ratingAverageArray = reviewController.calculateRatingAverageArrayByFilmId(id);
 
                             pageContext.setAttribute("reviewList", reviewList);
                             pageContext.setAttribute("userController", userController);
                             pageContext.setAttribute("ratingAverage", reviewController.calculateRatingAverageByFilmId(id));
+                            pageContext.setAttribute("ratingAverageArray", ratingAverageArray);
                             if (login != null) {
                                 pageContext.setAttribute("validateRegister", reviewController.validateRegisterReview(id, login.getId()));
                             }
@@ -156,32 +158,113 @@
                                 </div>
                             </c:when>
                             <c:otherwise>
-                                <div class="shadow-sm rounded p-2 mt-2 col-4" style="background-color: #F2F2F2">
-                                    <table class="table table-borderless">
-                                        <tr>
-                                            <td class="text-center">
-                                                전체 평점 평균
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">
-                                                <b class="fs-4"><fmt:formatNumber value="${ratingAverage}"
-                                                                                  pattern="0.0#/5"/></b>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center fs-5" style="color: #898C2B">
+                                <div class="row col-12">
+                                    <div class="col-4">
+                                        <div class="shadow-sm rounded p-2 mt-2 col-12" style="background-color: #F2F2F2">
+                                            <table class="table table-borderless">
+                                                <tr>
+                                                    <td class="text-center">
+                                                        전체 평점 평균
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <b class="fs-4"><fmt:formatNumber value="${ratingAverage}"
+                                                                                          pattern="0.0#/5"/></b>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center fs-5" style="color: #898C2B">
+                                                        <c:choose>
+                                                            <c:when test="${ratingAverage < 2}">★</c:when>
+                                                            <c:when test="${ratingAverage < 3}">★★</c:when>
+                                                            <c:when test="${ratingAverage < 4}">★★★</c:when>
+                                                            <c:when test="${ratingAverage < 5}">★★★★</c:when>
+                                                            <c:when test="${ratingAverage == 5}">★★★★★</c:when>
+                                                        </c:choose>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="shadow-sm rounded p-2 mt-2 col-12" style="background-color: #F2F2F2">
+                                            <table class="table table-borderless">
+                                                <tr>
+                                                    <td class="text-center">
+                                                        일반 회원 평점 평균
+                                                    </td>
+                                                </tr>
                                                 <c:choose>
-                                                    <c:when test="${ratingAverage < 2}">★</c:when>
-                                                    <c:when test="${ratingAverage < 3}">★★</c:when>
-                                                    <c:when test="${ratingAverage < 4}">★★★</c:when>
-                                                    <c:when test="${ratingAverage < 5}">★★★★</c:when>
-                                                    <c:when test="${ratingAverage == 5}">★★★★★</c:when>
+                                                    <c:when test="${ratingAverageArray[0] == 0}">
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                <b class="fs-6">입력된 평점 없음</b>
+                                                            </td>
+                                                        </tr>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                <b class="fs-4"><fmt:formatNumber value="${ratingAverageArray[0]}"
+                                                                                                  pattern="0.0#/5"/></b>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-center fs-5" style="color: #898C2B">
+                                                                <c:choose>
+                                                                    <c:when test="${ratingAverageArray[0] < 2}">★</c:when>
+                                                                    <c:when test="${ratingAverageArray[0] < 3}">★★</c:when>
+                                                                    <c:when test="${ratingAverageArray[0] < 4}">★★★</c:when>
+                                                                    <c:when test="${ratingAverageArray[0] < 5}">★★★★</c:when>
+                                                                    <c:when test="${ratingAverageArray[0] == 5}">★★★★★</c:when>
+                                                                </c:choose>
+                                                            </td>
+                                                        </tr>
+                                                    </c:otherwise>
                                                 </c:choose>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="shadow-sm rounded p-2 mt-2 col-12" style="background-color: #F2F2F2">
+                                            <table class="table table-borderless">
+                                                <tr>
+                                                    <td class="text-center">
+                                                        평론가 평점 평균
+                                                    </td>
+                                                </tr>
+                                                <c:choose>
+                                                    <c:when test="${ratingAverageArray[1] == 0}">
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                <b class="fs-6">입력된 평점 없음</b>
+                                                            </td>
+                                                        </tr>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <tr>
+                                                            <td class="text-center">
+                                                                <b class="fs-4"><fmt:formatNumber value="${ratingAverageArray[1]}"
+                                                                                                  pattern="0.0#/5"/></b>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-center fs-5" style="color: #898C2B">
+                                                                <c:choose>
+                                                                    <c:when test="${ratingAverageArray[1] < 2}">★</c:when>
+                                                                    <c:when test="${ratingAverageArray[1] < 3}">★★</c:when>
+                                                                    <c:when test="${ratingAverageArray[1] < 4}">★★★</c:when>
+                                                                    <c:when test="${ratingAverageArray[1] < 5}">★★★★</c:when>
+                                                                    <c:when test="${ratingAverageArray[1] == 5}">★★★★★</c:when>
+                                                                </c:choose>
+                                                            </td>
+                                                        </tr>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </table>
+                                        </div>
+                                    </div>
                                 <c:forEach var="review" items="${reviewList}">
                                     <div class="shadow-sm rounded p-2 mt-3" style="background-color: #F2F2F2">
                                         <table class="table table-borderless">

@@ -69,6 +69,9 @@
 <div class="container-fluid">
     <div class="container">
         <%@include file="../header.jsp" %>
+        <div class="col-12 text-center border-bottom mb-3 mt-5">
+            <h2>극장</h2>
+        </div>
         <c:choose>
             <c:when test="${empty cinemaList}">
                 <div>
@@ -96,7 +99,7 @@
                         <ul class="pagination">
                             <li class="page-item">
                                 <a href="/cinema/printList.jsp?pageNo=${1}" class="page-link">
-                                    <span>&laquo;</span>
+                                    <span>&lt;</span>
                                 </a>
                             </li>
                             <c:forEach begin="${startPage}" end="${endPage}" var="i">
@@ -119,7 +122,7 @@
                             </c:forEach>
                             <li class="page-item">
                                 <a href="/cinema/printList.jsp?pageNo=${totalPage}" class="page-link">
-                                    <span>&raquo;</span>
+                                    <span>&gt;</span>
                                 </a>
                             </li>
                         </ul>
