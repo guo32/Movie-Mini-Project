@@ -1,13 +1,11 @@
-<%@ page import="model.UserDTO" %>
 <%@ page import="controller.FilmController" %>
 <%@ page import="dbConn.MySqlConnectionMaker" %>
 <%@ page import="dbConn.ConnectionMaker" %>
-<%@ page import="model.FilmDTO" %>
 <%@ page import="controller.CinemaController" %>
-<%@ page import="model.CinemaDTO" %>
 <%@ page import="controller.TheaterController" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="model.TheaterDTO" %><%--
+<%@ page import="controller.ScreenInformationController" %>
+<%@ page import="model.*" %><%--
   Created by IntelliJ IDEA.
   User: USER
   Date: 2023-02-14
@@ -60,15 +58,48 @@
                         </p>
                         <hr>
                         <h4 class="blog-post-title">상영정보</h4>
-                        <p>가장 최신의 상영정보 5개 출력하기</p>
-                        <hr>
-                        <h4 class="blog-post-title">상영관</h4>
                         <%
                             TheaterController theaterController = new TheaterController(connectionMaker);
                             ArrayList<TheaterDTO> theaterList = theaterController.selectByCinemaId(id);
 
+                            ScreenInformationController screenInformationController = new ScreenInformationController(connectionMaker);
+                            ArrayList<ScreenInformationDTO> screenInformationList = screenInformationController.selectByCinemaId(id);
+
+                            FilmController filmController = new FilmController(connectionMaker);
+
+                            pageContext.setAttribute("screenInfoList", screenInformationList);
                             pageContext.setAttribute("theaterList", theaterList);
+                            pageContext.setAttribute("theaterController", theaterController);
+                            pageContext.setAttribute("filmController", filmController);
                         %>
+                        <div class="col-12">
+                            <c:choose>
+                                <c:when test="${empty screenInfoList}">
+                                    <p>상영 정보가 존재하지 않습니다.</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <table class="table table-hover border-top">
+                                        <tbody>
+                                        <c:forEach var="screenInfo" items="${screenInfoList}">
+                                            <tr>
+                                                <td class="col-4 text-center table-light">
+                                                        ${filmController.selectById(screenInfo.film_id).title}
+                                                    <span class="badge bg-success fw-light">${theaterController.selectById(screenInfo.theater_id).name}</span>
+                                                </td>
+                                                <td>&nbsp;&nbsp;
+                                                    <fmt:formatDate value="${screenInfo.start_time}" pattern="yy/MM/dd HH:mm"/>
+                                                    -
+                                                    <fmt:formatDate value="${screenInfo.end_time}" pattern="yy/MM/dd HH:mm"/>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <hr>
+                        <h4 class="blog-post-title">상영관</h4>
                         <div class="col-12">
                             <c:choose>
                                 <c:when test="${empty theaterList}">
