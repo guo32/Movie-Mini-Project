@@ -45,6 +45,7 @@
     int totalPage = filmController.countTotalPage();
     int startNum;
     int endNum;
+
     if (pageNo <= 3) {
         startNum = 1;
         endNum = 5;

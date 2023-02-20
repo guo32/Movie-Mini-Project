@@ -66,7 +66,7 @@
                 </div>
                 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
                 <script>
-                    var swiper = new Swiper(".mySwiper", {
+                    let swiper = new Swiper(".mySwiper", {
                         slidesPerView: 4,
                         spaceBetween: 30,
                         loop: true,

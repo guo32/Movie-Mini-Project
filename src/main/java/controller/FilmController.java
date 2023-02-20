@@ -141,7 +141,6 @@ public class FilmController {
             if (count % PAGE_SIZE != 0) {
                 totalPage++;
             }
-
             resultSet.close();
             pstmt.close();
         } catch (SQLException e) {
