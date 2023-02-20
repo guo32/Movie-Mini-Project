@@ -36,7 +36,19 @@ public class ReviewController {
     }
 
     public void update(ReviewDTO reviewDTO) {
+        String query = "UPDATE `review` SET `rating` = ?, `review_content` = ?, `modify_date` = now() WHERE `id` = ?";
 
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, reviewDTO.getRating());
+            pstmt.setString(2, reviewDTO.getReview_content());
+            pstmt.setInt(3, reviewDTO.getId());
+
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean delete(int id) {
@@ -52,6 +64,33 @@ public class ReviewController {
             return false;
         }
         return true;
+    }
+
+    public ReviewDTO selectById(int id) {
+        ReviewDTO reviewDTO = null;
+        String query = "SELECT * FROM `review` WHERE `id` = ?";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, id);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                reviewDTO = new ReviewDTO();
+                reviewDTO.setId(resultSet.getInt("id"));
+                reviewDTO.setWriter_id(resultSet.getInt("writer_id"));
+                reviewDTO.setFilm_id(resultSet.getInt("film_id"));
+                reviewDTO.setRating(resultSet.getInt("rating"));
+                reviewDTO.setReview_content(resultSet.getString("review_content"));
+                reviewDTO.setEntry_date(resultSet.getTimestamp("entry_date"));
+            }
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return reviewDTO;
     }
 
     public ArrayList<ReviewDTO> selectByFilmId(int film_id) {

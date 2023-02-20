@@ -98,8 +98,7 @@
                                  style="background-color: #FFFFFF">
                                 <c:choose>
                                     <c:when test="${cinema.image == null}">
-                                        <rect width="100%" height="100%" fill="#0d0d0d"></rect>
-                                        <text x="40%" y="50%" fill="#f2f2f2">No image</text>
+                                        <image href="../resource/img/no_image.JPG" width="100%" height="100%"/>
                                     </c:when>
                                     <c:otherwise>
                                         <image href="../resource/img/${cinema.image}" width="100%" height="100%"/>

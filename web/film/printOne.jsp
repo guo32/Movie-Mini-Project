@@ -280,7 +280,16 @@
                                                 </td>
                                                 <td>
                                                     <c:if test="${review.writer_id == login.id}">
-                                                        <span class="badge bg-success fw-light">수정</span>
+                                                        <script>
+                                                            function showUpdateReviewForm() {
+                                                                if(${login.grade == 1}) {
+                                                                    let ret = window.open("../review/update.jsp?id=${review.id}&film_id=<%=id%>", "", "height=180, width=500");
+                                                                } else {
+                                                                    let ret = window.open("../review/update.jsp?id=${review.id}&film_id=<%=id%>", "", "height=240, width=500");
+                                                                }
+                                                            }
+                                                        </script>
+                                                        <span class="badge bg-success fw-light" onclick="showUpdateReviewForm()">수정</span>
                                                         <span class="badge bg-danger fw-light"
                                                               onclick="if(confirm('정말로 삭제하시겠습니까?')) {
                                                                       location.href='../review/delete_action.jsp?id=' + ${review.id} + '&film_id=' + <%=id%>;
