@@ -1,12 +1,11 @@
-<%@ page import="dbConn.MySqlConnectionMaker" %>
 <%@ page import="dbConn.ConnectionMaker" %>
-<%@ page import="model.UserDTO" %>
+<%@ page import="dbConn.MySqlConnectionMaker" %>
 <%@ page import="controller.UserGradeRequestController" %>
-<%@ page import="model.UserGradeRequestDTO" %><%--
+<%@ page import="model.UserDTO" %><%--
   Created by IntelliJ IDEA.
   User: USER
   Date: 2023-02-21
-  Time: 오전 11:42
+  Time: 오후 2:02
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -17,24 +16,19 @@
 <body>
 <%
     request.setCharacterEncoding("utf-8");
-
     UserDTO login = (UserDTO) session.getAttribute("login");
     if (login == null) {
-        response.sendRedirect("../index.jsp");
+        response.sendRedirect("/user/login.jsp");
     }
+
+    int id = Integer.parseInt(request.getParameter("id"));
 
     ConnectionMaker connectionMaker = new MySqlConnectionMaker();
     UserGradeRequestController userGradeRequestController = new UserGradeRequestController(connectionMaker);
 
-    UserGradeRequestDTO userGradeRequestDTO = new UserGradeRequestDTO();
-    userGradeRequestDTO.setUser_id(login.getId());
-    userGradeRequestDTO.setRequest_grade(Integer.parseInt(request.getParameter("request_grade")));
+    userGradeRequestController.delete(id);
 
-    userGradeRequestController.insert(userGradeRequestDTO);
+    response.sendRedirect("/user/mypage.jsp");
 %>
-<script>
-    alert("정상적으로 신청되었습니다.");
-    location.href = "/user/mypage.jsp";
-</script>
 </body>
 </html>

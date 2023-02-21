@@ -39,6 +39,11 @@
         Movie<br/>Management
     </a>
     <ul class="nav nav-pills">
+        <c:if test="${login.grade == 3}">
+            <li class="nav-item mx-1">
+                <a href="/user/printList.jsp" class="nav-link link-dark">회원</a>
+            </li>
+        </c:if>
         <li class="nav-item mx-1">
             <a href="/film/printList.jsp" class="nav-link link-dark">영화</a>
         </li>

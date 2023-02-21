@@ -81,6 +81,8 @@ public class UserController {
                 userDTO.setUsername(resultSet.getString("username"));
                 userDTO.setNickname(resultSet.getString("nickname"));
                 userDTO.setGrade(resultSet.getInt("grade"));
+
+                list.add(userDTO);
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -39,7 +39,7 @@
                             <div class="col-10">
                                 <div class="row justify-content-center m-2 bg-light p-4 rounded">
                                     <div class="form-check col-5">
-                                        <input type="radio" name="request_grade" id="request_grade1" value="2" class="form-check-input">
+                                        <input type="radio" name="request_grade" id="request_grade1" value="2" class="form-check-input" <c:if test="${login.grade == 2}">disabled</c:if>>
                                         <label class="form-check-label" for="request_grade1">
                                             전문 평론가
                                         </label>
@@ -56,7 +56,7 @@
                         <div class="row justify-content-center">
                             <div class="col-10 text-center">
                                 <button class="btn btn-outline-primary col-5">신청</button>
-                                <div class="col-5 btn btn-outline-danger" onclick="location.href='/user/mypage.jsp?id=${login.id}'">취소
+                                <div class="col-5 btn btn-outline-danger" onclick="location.href='/user/mypage.jsp'">취소
                                 </div>
                             </div>
                         </div>
