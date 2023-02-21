@@ -34,6 +34,36 @@ public class TheaterController {
         return true;
     }
 
+    public void update(TheaterDTO theaterDTO) {
+        String query = "UPDATE `theater` SET `name` = ?, `capacity` = ? WHERE `id` = ?";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, theaterDTO.getName());
+            pstmt.setInt(2, theaterDTO.getCapacity());
+            pstmt.setInt(3, theaterDTO.getId());
+
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void delete(int id) {
+        String query = "DELETE FROM `theater` WHERE `id` = ?";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, id);
+
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public TheaterDTO selectById(int id) {
         TheaterDTO theaterDTO = null;
         String query = "SELECT * FROM `theater` WHERE `id` = ?";

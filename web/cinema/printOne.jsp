@@ -40,6 +40,15 @@
     <link rel="stylesheet" type="text/css" href="/resource/css/main.css"/>
 </head>
 <body>
+<script>
+    function checkDelete() {
+        let result = confirm("극장 <${cinema.name}>을(를) 정말로 삭제하시겠습니까?");
+
+        if(result) {
+            location.href = "/cinema/delete.jsp?id=" + ${cinema.id};
+        }
+    }
+</script>
 <div class="container-fluid">
     <div class="container">
         <%@include file="../header.jsp" %>
@@ -47,6 +56,12 @@
             <div class="row g-5">
                 <!-- 자세한 정보 -->
                 <div class="col-md-8 mb-5">
+                    <c:if test="${login != null && login.grade == 3}">
+                        <div class="mb-2">
+                            <button class="badge bg-success fw-light border-0" onclick="location.href='/cinema/update.jsp?id=${cinema.id}'">수정</button>
+                            <button class="badge bg-danger fw-light border-0" onclick="checkDelete()">삭제</button>
+                        </div>
+                    </c:if>
                     <article class="blog-post">
                         <h2 class="blog-post-title">${cinema.name}</h2>
                         <hr>
