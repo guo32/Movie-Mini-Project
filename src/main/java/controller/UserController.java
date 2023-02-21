@@ -3,6 +3,8 @@ package controller;
 import dbConn.ConnectionMaker;
 import model.UserDTO;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -102,7 +104,6 @@ public class UserController {
                 u = new UserDTO();
                 u.setId(resultSet.getInt("id"));
                 u.setUsername(resultSet.getString("username"));
-                u.setPassword(resultSet.getString("password"));
                 u.setNickname(resultSet.getString("nickname"));
                 u.setGrade(resultSet.getInt("grade"));
             }
@@ -160,5 +161,20 @@ public class UserController {
         }
 
         return null;
+    }
+
+    public String encrypt(String password) throws NoSuchAlgorithmException {
+        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+        messageDigest.update(password.getBytes());
+
+        return bytesToHex(messageDigest.digest());
+    }
+
+    private String bytesToHex(byte[] bytes) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (byte b : bytes) {
+            stringBuilder.append(String.format("%02x", b));
+        }
+        return stringBuilder.toString();
     }
 }

@@ -20,7 +20,7 @@
     UserController controller = new UserController(connectionMaker);
 
     String username = request.getParameter("username");
-    String password = request.getParameter("password");
+    String password = controller.encrypt(request.getParameter("password"));
 
     UserDTO userDTO = controller.auth(username, password);
 

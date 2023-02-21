@@ -25,12 +25,12 @@
         response.sendRedirect("/user/login.jsp");
     }
 
-    String newPassword = request.getParameter("newPassword");
-    String oldPassword = request.getParameter("oldPassword");
+    String newPassword = userController.encrypt(request.getParameter("newPassword"));
+    String oldPassword = userController.encrypt(request.getParameter("oldPassword"));
     String nickname = request.getParameter("nickname");
 
-    UserDTO userDTO = userController.selectById(login.getId());
-    if (!userDTO.getPassword().equals(oldPassword)) {
+    UserDTO userDTO = userController.auth(login.getUsername(), oldPassword);
+    if (userDTO == null) {
 %>
 <script>
     alert("[회원 정보 수정 실패]\n회원 정보 수정에 실패하였습니다.")
