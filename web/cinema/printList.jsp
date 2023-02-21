@@ -69,6 +69,9 @@
 <div class="container-fluid">
     <div class="container">
         <%@include file="../header.jsp" %>
+        <c:if test="${login != null && login.grade == 3}">
+            <button class="btn btn-outline-success btn-sm mb-2" onclick="location.href='/cinema/register.jsp'">극장 등록하기</button>
+        </c:if>
         <div class="col-12 text-center border-bottom mb-3 mt-5">
             <h2>극장</h2>
         </div>

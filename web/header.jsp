@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="model.UserDTO" %>
 <%
     UserDTO login = (UserDTO) session.getAttribute("login");
     pageContext.setAttribute("login", login);
@@ -38,6 +39,11 @@
         Movie<br/>Management
     </a>
     <ul class="nav nav-pills">
+        <c:if test="${login.grade == 3}">
+            <li class="nav-item mx-1">
+                <a href="/user/printList.jsp" class="nav-link link-dark">회원</a>
+            </li>
+        </c:if>
         <li class="nav-item mx-1">
             <a href="/film/printList.jsp" class="nav-link link-dark">영화</a>
         </li>
@@ -45,7 +51,7 @@
             <a href="/cinema/printList.jsp" class="nav-link link-dark">극장</a>
         </li>
         <li class="nav-item mx-1">
-            <a href="#" class="nav-link link-dark">상영 정보</a>
+            <a href="/screenInfo/printList.jsp" class="nav-link link-dark">상영 정보</a>
         </li>
     </ul>
 </header>
