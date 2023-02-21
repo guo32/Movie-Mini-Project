@@ -75,6 +75,11 @@
                 </div>
                 <div class="col-md-4">
                     <ul>
+                        <c:if test="${login.grade != 3}">
+                            <li>
+                                <div class="btn btn-outline-success btn-sm mb-2" onclick="location.href='/user/request_modify_grade.jsp'">등업 신청</div>
+                            </li>
+                        </c:if>
                         <li>
                             <div class="btn btn-outline-success btn-sm mb-2" onclick="location.href='/user/update.jsp'">회원 정보 수정</div>
                         </li>

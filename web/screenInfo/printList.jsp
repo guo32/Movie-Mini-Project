@@ -79,7 +79,8 @@
                                     <table class="table table-sm">
                                         <thead class="table-secondary text-center">
                                         <tr>
-                                            <td>${filmController.selectById(info.film_id).title}
+                                            <td>
+                                                <span onclick="location.href='../film/printOne.jsp?id=${info.film_id}'">${filmController.selectById(info.film_id).title}</span>
                                                 <span class="badge rounded-pill text-bg-success fw-lighter">${cinemaController.selectById(info.cinema_id).name}</span>
                                                 <span class="badge rounded-pill text-bg-warning fw-lighter">${theaterController.selectById(info.theater_id).name}</span>
                                             </td>
