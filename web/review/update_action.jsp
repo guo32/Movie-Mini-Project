@@ -43,11 +43,7 @@
     }
 
     reviewController.update(reviewDTO);
+    response.sendRedirect("../film/printOne.jsp?id=" + film_id);
 %>
-<script>
-    /* 부모 창 새로 고침 */
-    opener.parent.location.reload();
-    window.close();
-</script>
 </body>
 </html>
