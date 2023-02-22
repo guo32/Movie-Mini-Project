@@ -38,8 +38,10 @@
 </script>
 <%
     } else {
-        if (!newPassword.equals("")) {
+        if (!newPassword.equals(userController.encrypt(""))) {
             userDTO.setPassword(newPassword);
+        } else {
+            userDTO.setPassword(oldPassword);
         }
         userDTO.setNickname(nickname);
         userController.update(userDTO);
