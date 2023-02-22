@@ -153,7 +153,7 @@
                                 </table>
                             </div>
                             <div class="text-center mt-2">
-                                <button type="submit" class="btn btn-outline-success">등록</button>
+                                <button type="submit" class="btn btn-outline-success">수정</button>
                                 <div class="btn btn-outline-danger" onclick="location.href='/cinema/printList.jsp'">취소</div>
                             </div>
                         </article>

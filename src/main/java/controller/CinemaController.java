@@ -2,6 +2,7 @@ package controller;
 
 import dbConn.ConnectionMaker;
 import model.CinemaDTO;
+import model.TheaterDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -132,6 +133,34 @@ public class CinemaController {
         return list;
     }
 
+    public ArrayList<CinemaDTO> selectAll() {
+        ArrayList<CinemaDTO> list = new ArrayList<>();
+        String query = "SELECT * FROM `cinema` ORDER BY `autonomous_district`";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            ResultSet resultSet = pstmt.executeQuery();
+
+            while (resultSet.next()) {
+                CinemaDTO cinemaDTO = new CinemaDTO();
+                cinemaDTO.setId(resultSet.getInt("id"));
+                cinemaDTO.setName(resultSet.getString("name"));
+                cinemaDTO.setCountry(resultSet.getString("country"));
+                cinemaDTO.setAutonomous_district(resultSet.getString("autonomous_district"));
+                cinemaDTO.setDetailed_address(resultSet.getString("detailed_address"));
+
+                list.add(cinemaDTO);
+            }
+
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
     public int countTotalPage() {
         int totalPage = 0;
         String query = "SELECT COUNT(*) FROM `cinema`";
@@ -177,4 +206,26 @@ public class CinemaController {
 
         return result;
     }
+
+    public ArrayList<String> selectCountry() {
+        ArrayList<String> list = new ArrayList<>();
+        String query = "SELECT DISTINCT `country` FROM `cinema`";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            ResultSet resultSet = pstmt.executeQuery();
+
+            while (resultSet.next()) {
+                list.add(resultSet.getString("country"));
+            }
+
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
 }

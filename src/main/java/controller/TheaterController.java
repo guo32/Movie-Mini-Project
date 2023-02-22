@@ -111,4 +111,28 @@ public class TheaterController {
 
         return list;
     }
+
+    public ArrayList<TheaterDTO> selectAll() {
+        ArrayList<TheaterDTO> list = new ArrayList<>();
+        String query = "SELECT * FROM `theater` ORDER BY `name`";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                TheaterDTO theaterDTO = new TheaterDTO();
+                theaterDTO.setId(resultSet.getInt("id"));
+                theaterDTO.setCinema_id(resultSet.getInt("cinema_id"));
+                theaterDTO.setName(resultSet.getString("name"));
+                theaterDTO.setCapacity(resultSet.getInt("capacity"));
+
+                list.add(theaterDTO);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 }
