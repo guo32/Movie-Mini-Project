@@ -14,8 +14,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
     request.setCharacterEncoding("utf-8");
-    ConnectionMaker connectionMaker = new MySqlConnectionMaker();
-    UserGradeRequestController userGradeRequestController = new UserGradeRequestController(connectionMaker);
 
     ArrayList<UserGradeRequestDTO> userGradeRequestList = userGradeRequestController.selectByUserId(login.getId());
     pageContext.setAttribute("requestList", userGradeRequestList);

@@ -32,6 +32,38 @@
     <script type="text/javascript" src="../resource/javascript/readImage.js"></script>
 </head>
 <body>
+<script>
+    let checkForm = function () {
+        let name = document.getElementById("name").value;
+        let country = document.getElementById("country").value;
+        let autonomous_district = document.getElementById("autonomous_district").value;
+        let detailed_address = document.getElementById("detailed_address").value;
+        let phone = document.getElementById("phone").value;
+
+        if (name == '' || name == null) {
+            alert("극장명은 비워둘 수 없습니다.");
+            return;
+        }
+        if (country == '' || country == null) {
+            alert("시도는 비워둘 수 없습니다.");
+            return;
+        }
+        if (autonomous_district == '' || autonomous_district == null) {
+            alert("자치구는 비워둘 수 없습니다.");
+            return;
+        }
+        if (detailed_address == '' || detailed_address == null) {
+            alert("상세 주소는 비워둘 수 없습니다.");
+            return;
+        }
+        if (phone == '' || phone == null) {
+            alert("전화번호는 비워둘 수 없습니다.");
+            return;
+        }
+
+        document.cinemaForm.submit();
+    }
+</script>
 <div class="container-fluid">
     <div class="container">
         <%@include file="../header.jsp" %>
@@ -42,7 +74,7 @@
                 response.sendRedirect("/cinema/printList.jsp");
             }
         %>
-        <form name="cinemaForm" action="/cinema/register_logic.jsp" method="post" enctype="multipart/form-data">
+        <form action="/cinema/register_logic.jsp" method="post" enctype="multipart/form-data" name="cinemaForm">
             <main class="container">
                 <div class="row g-5">
                     <!-- 극장 기본 정보 입력 -->
@@ -61,19 +93,23 @@
                                     <tr>
                                         <td class="col-1">주소</td>
                                         <td>
-                                            <input type="text" name="country" id="country" placeholder="시도" class="form-control"/>
+                                            <input type="text" name="country" id="country" placeholder="시도"
+                                                   class="form-control"/>
                                         </td>
                                         <td>
-                                            <input type="text" name="autonomous_district" id="autonomous_district" placeholder="자치구" class="form-control"/>
+                                            <input type="text" name="autonomous_district" id="autonomous_district"
+                                                   placeholder="자치구" class="form-control"/>
                                         </td>
                                         <td class="col-6">
-                                            <input type="text" name="detailed_address" id="detailed_address" placeholder="상세 주소" class="form-control"/>
+                                            <input type="text" name="detailed_address" id="detailed_address"
+                                                   placeholder="상세 주소" class="form-control"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="col-1">전화</td>
                                         <td colspan="3">
-                                            <input type="text" name="phone" id="phone" placeholder="-를 포함한 전화 번호" class="form-control col-auto"/>
+                                            <input type="text" name="phone" id="phone" placeholder="-를 포함한 전화 번호"
+                                                   class="form-control col-auto"/>
                                         </td>
                                     </tr>
                                 </table>
@@ -104,15 +140,19 @@
                                 <table class="col-12" id="newTheaterList">
                                     <tr>
                                         <td>
-                                            <input type="text" name="theater_name" class="theater_name form-control" placeholder="상영관 이름"/>
+                                            <input type="text" name="theater_name" class="theater_name form-control"
+                                                   placeholder="상영관 이름"/>
                                         </td>
                                         <td class="col-3">
-                                            <input type="text" name="theater_capacity" class="theater_capacity form-control" placeholder="수용 인원"/>
+                                            <input type="text" name="theater_capacity"
+                                                   class="theater_capacity form-control" placeholder="수용 인원"/>
                                         </td>
                                         <td>
                                             <button type="button" onclick="addTheaterForm()" class="btn btn-success">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                     fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                          d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
                                                 </svg>
                                             </button>
                                         </td>
@@ -120,8 +160,10 @@
                                 </table>
                             </div>
                             <div class="text-center mt-2">
-                                <button type="submit" class="btn btn-outline-success">등록</button>
-                                <div class="btn btn-outline-danger" onclick="location.href='/cinema/printList.jsp'">취소</div>
+                                <div class="btn btn-outline-success" onclick="checkForm()">등록</div>
+                                <div class="btn btn-outline-danger" onclick="location.href='/cinema/printList.jsp'">
+                                    취소
+                                </div>
                             </div>
                         </article>
                     </div>
@@ -131,7 +173,8 @@
                             <div class="p-4 mb-3 rounded shadow-sm" style="background-color: #f2f2f2">
                                 <div class="form-group">
                                     <label for="image" class="mb-2">극장 이미지</label>
-                                    <input type="file" class="form-control-file" id="image" name="cinema_image" onchange="readImage(this)">
+                                    <input type="file" class="form-control-file" id="image" name="cinema_image"
+                                           onchange="readImage(this)">
                                     <img id="preview" width="100%" height="250" class="bg-light mt-2"/>
                                 </div>
                             </div>
@@ -145,8 +188,3 @@
 </div>
 </body>
 </html>
-<script>
-    function checkForm() {
-        document.cinemaForm.onsubmit;
-    }
-</script>

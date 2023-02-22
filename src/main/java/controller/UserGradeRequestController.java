@@ -141,4 +141,23 @@ public class UserGradeRequestController {
 
         return list;
     }
+
+    public boolean validateRequest(int user_id) {
+        boolean result = true;
+        String query = "SELECT * FROM `userGradeRequest` WHERE `user_id` = ? AND `status` = 'N'";
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, user_id);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                result = false;
+            }
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

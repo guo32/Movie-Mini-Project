@@ -31,6 +31,33 @@
     <script type="text/javascript" src="../resource/javascript/readImage.js"></script>
 </head>
 <body>
+<script>
+    function checkForm() {
+        let title = document.getElementById("title").value;
+        let director = document.getElementById("director").value;
+        let rating = document.getElementById("rating").value;
+        let description = document.getElementById("description").value;
+
+        if (title == '' || title == null) {
+            alert("제목은 비워둘 수 없습니다.");
+            return;
+        }
+        if (director == '' || director == null) {
+            alert("감독은 비워둘 수 없습니다.");
+            return;
+        }
+        if (rating == '' || rating == null) {
+            alert("등급을 선택해주세요.");
+            return;
+        }
+        if (description == '' || description == null) {
+            alert("줄거리는 비워둘 수 없습니다.");
+            return;
+        }
+
+        document.registerForm.submit();
+    }
+</script>
 <div class="container-fluid">
     <div class="container">
         <%@include file="../header.jsp" %>
@@ -41,7 +68,7 @@
                 response.sendRedirect("/film/printList.jsp");
             }
         %>
-        <form action="/film/register_logic.jsp" method="post" enctype="multipart/form-data">
+        <form action="/film/register_logic.jsp" method="post" enctype="multipart/form-data" name="registerForm">
             <main class="container">
                 <div class="row g-5">
                     <!-- 영화 기본 정보 입력 -->
@@ -59,7 +86,8 @@
                                 <table class="col-12">
                                     <tr>
                                         <td class="col-1">감독</td>
-                                        <td><input type="text" name="director" id="director" placeholder="영화 감독" class="form-control col-auto"></td>
+                                        <td><input type="text" name="director" id="director" placeholder="영화 감독"
+                                                   class="form-control col-auto"></td>
                                     </tr>
                                     <tr>
                                         <td class="col-1">등급</td>
@@ -79,11 +107,13 @@
                             <hr>
                             <h4 class="blog-post-title">줄거리</h4>
                             <div>
-                                <textarea name="description" id="description" rows="8" placeholder="영화의 줄거리를 입력해주세요." class="form-control"></textarea>
+                                <textarea name="description" id="description" rows="8" placeholder="영화의 줄거리를 입력해주세요."
+                                          class="form-control"></textarea>
                             </div>
                             <div class="text-center mt-2">
-                                <button type="submit" class="btn btn-outline-success">등록</button>
-                                <div class="btn btn-outline-danger" onclick="location.href='/film/printList.jsp'">취소</div>
+                                <button type="button" class="btn btn-outline-success" onclick="checkForm()">등록</button>
+                                <div class="btn btn-outline-danger" onclick="location.href='/film/printList.jsp'">취소
+                                </div>
                             </div>
                         </article>
                     </div>
@@ -93,7 +123,8 @@
                             <div class="p-4 mb-3 rounded shadow-sm" style="background-color: #f2f2f2">
                                 <div class="form-group">
                                     <label for="poster" class="mb-2">포스터 이미지</label>
-                                    <input type="file" class="form-control-file" id="poster" name="poster_image" onchange="readImage(this)">
+                                    <input type="file" class="form-control-file" id="poster" name="poster_image"
+                                           onchange="readImage(this)">
                                     <img id="preview" width="100%" height="250" class="bg-light mt-2"/>
                                 </div>
                             </div>

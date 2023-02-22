@@ -28,6 +28,38 @@
     <script type="text/javascript" src="../resource/javascript/readImage.js"></script>
 </head>
 <body>
+<script>
+    let checkForm = function () {
+        let name = document.getElementById("name").value;
+        let country = document.getElementById("country").value;
+        let autonomous_district = document.getElementById("autonomous_district").value;
+        let detailed_address = document.getElementById("detailed_address").value;
+        let phone = document.getElementById("phone").value;
+
+        if (name == '' || name == null) {
+            alert("극장명은 비워둘 수 없습니다.");
+            return;
+        }
+        if (country == '' || country == null) {
+            alert("시도는 비워둘 수 없습니다.");
+            return;
+        }
+        if (autonomous_district == '' || autonomous_district == null) {
+            alert("자치구는 비워둘 수 없습니다.");
+            return;
+        }
+        if (detailed_address == '' || detailed_address == null) {
+            alert("상세 주소는 비워둘 수 없습니다.");
+            return;
+        }
+        if (phone == '' || phone == null) {
+            alert("전화번호는 비워둘 수 없습니다.");
+            return;
+        }
+
+        document.cinemaForm.submit();
+    }
+</script>
 <div class="container-fluid">
     <div class="container">
         <%@include file="../header.jsp" %>
@@ -153,7 +185,7 @@
                                 </table>
                             </div>
                             <div class="text-center mt-2">
-                                <button type="submit" class="btn btn-outline-success">수정</button>
+                                <button type="button" class="btn btn-outline-success" onclick="checkForm()">수정</button>
                                 <div class="btn btn-outline-danger" onclick="location.href='/cinema/printList.jsp'">취소</div>
                             </div>
                         </article>
@@ -185,8 +217,3 @@
 </div>
 </body>
 </html>
-<script>
-    function checkForm() {
-        document.cinemaForm.onsubmit;
-    }
-</script>

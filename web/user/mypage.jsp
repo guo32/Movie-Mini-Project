@@ -31,6 +31,12 @@
                 %>
             </c:when>
             <c:otherwise>
+                <%
+                    ConnectionMaker connectionMaker = new MySqlConnectionMaker();
+                    UserGradeRequestController userGradeRequestController = new UserGradeRequestController(connectionMaker);
+
+                    pageContext.setAttribute("validate", userGradeRequestController.validateRequest(login.getId()));
+                %>
                 <script>
                     function checkDelete() {
                         let result = confirm("정말로 탈퇴하시겠습니까?");
@@ -78,7 +84,14 @@
                             <ul>
                                 <c:if test="${login.grade != 3}">
                                     <li>
-                                        <div class="btn btn-outline-success btn-sm mb-2" onclick="location.href='request_grade.jsp'">등업 신청</div>
+                                        <c:choose>
+                                            <c:when test="${validate == true}">
+                                                <div class="btn btn-outline-success btn-sm mb-2" onclick="location.href='request_grade.jsp'">등업 신청</div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="btn btn-outline-success btn-sm mb-2" onclick="alert('처리되지 않은 신청 내역이 존재합니다.\n신청 내역 삭제 후 신청해주세요.\n[등업 신청 현황 > 취소]')">등업 신청</div>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </li>
                                     <li>
                                         <div class="btn btn-outline-success btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#requestGradeList">등업 신청 현황</div>

@@ -62,11 +62,15 @@
 
     TheaterController theaterController = new TheaterController(connectionMaker);
     for (int i = 0; i < theaterNames.length; i++) {
-        TheaterDTO theaterDTO = new TheaterDTO();
-        theaterDTO.setCinema_id(cinemaId);
-        theaterDTO.setName(theaterNames[i]);
-        theaterDTO.setCapacity(Integer.parseInt(theaterCapacities[i]));
-        theaterController.insert(theaterDTO);
+        if(theaterNames[i].equals("") || theaterCapacities[i].equals("")) {
+            continue;
+        } else {
+            TheaterDTO theaterDTO = new TheaterDTO();
+            theaterDTO.setCinema_id(cinemaId);
+            theaterDTO.setName(theaterNames[i]);
+            theaterDTO.setCapacity(Integer.parseInt(theaterCapacities[i]));
+            theaterController.insert(theaterDTO);
+        }
     }
 
     response.sendRedirect("../cinema/printOne.jsp?id=" + cinemaId);
