@@ -26,6 +26,9 @@
         CinemaController cinemaController = new CinemaController(connectionMaker);
 
         CinemaDTO cinemaDTO = cinemaController.selectById(id);
+        if (cinemaDTO == null) {
+            response.sendRedirect("../assets/error_page.jsp");
+        }
         pageContext.setAttribute("cinema", cinemaDTO);
     %>
     <title>극장 : ${cinema.name}</title>

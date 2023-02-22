@@ -27,6 +27,9 @@
         FilmController filmController = new FilmController(connectionMaker);
 
         FilmDTO filmDTO = filmController.selectById(id);
+        if (filmDTO == null) {
+            response.sendRedirect("../assets/error_page.jsp");
+        }
         pageContext.setAttribute("film", filmDTO);
     %>
     <title>영화 : ${film.title}</title>
