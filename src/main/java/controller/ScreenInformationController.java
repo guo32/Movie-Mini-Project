@@ -38,11 +38,59 @@ public class ScreenInformationController {
     }
 
     public void update(ScreenInformationDTO screenInformationDTO) {
+        String query = "UPDATE `screenInformation` SET `start_time` = ?, `end_time` = ? WHERE `id` = ?";
 
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setTimestamp(1, screenInformationDTO.getStart_time());
+            pstmt.setTimestamp(2, screenInformationDTO.getEnd_time());
+            pstmt.setInt(3, screenInformationDTO.getId());
+
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void delete(int id) {
+        String query = "DELETE FROM `screenInformation` WHERE `id` = ?";
 
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ScreenInformationDTO selectById(int id) {
+        ScreenInformationDTO screenInformationDTO = null;
+        String query = "SELECT * FROM `screenInformation` WHERE `id` = ?";
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, id);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                screenInformationDTO = new ScreenInformationDTO();
+                screenInformationDTO.setId(resultSet.getInt("id"));
+                screenInformationDTO.setCinema_id(resultSet.getInt("cinema_id"));
+                screenInformationDTO.setTheater_id(resultSet.getInt("theater_id"));
+                screenInformationDTO.setFilm_id(resultSet.getInt("film_id"));
+                screenInformationDTO.setStart_time(resultSet.getTimestamp("start_time"));
+                screenInformationDTO.setEnd_time(resultSet.getTimestamp("end_time"));
+            }
+
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return screenInformationDTO;
     }
 
     public ArrayList<ScreenInformationDTO> selectByCinemaId(int cinema_id) {

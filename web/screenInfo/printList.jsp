@@ -67,6 +67,7 @@
         <%@include file="../header.jsp" %>
         <c:if test="${login != null && login.grade == 3}">
             <button class="btn btn-outline-success btn-sm mb-2" onclick="location.href='/screenInfo/register.jsp'">상영 정보 등록하기</button>
+            <button class="btn btn-outline-secondary btn-sm mb-2"  onclick="location.href='/screenInfo/edit.jsp'">상영 정보 편집하기</button>
         </c:if>
         <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
             <c:forEach var="date" items="${dateSet}">
