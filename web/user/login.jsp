@@ -18,6 +18,9 @@
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/resource/css/main.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="../assets/js/login.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -57,37 +60,35 @@
         <div class="row my-5 align-items-center">
             <div class="row justify-content-center">
                 <div class="col-6" style="background-color: #F2F2F2; border-radius: 1em;">
-                    <form action="/user/auth.jsp" method="post">
-                        <div class="row justify-content-center m-3" style="font-size: xx-large">
-                            로그인
-                        </div>
-                        <div class="row justify-content-center mb-2">
-                            <div class="col-10">
-                                <div class="form-floating">
-                                    <input type="text" id="username" name="username" class="form-control"
-                                           placeholder="아이디">
-                                    <label for="username">아이디</label>
-                                </div>
+                    <div class="row justify-content-center m-3" style="font-size: xx-large">
+                        로그인
+                    </div>
+                    <div class="row justify-content-center mb-2">
+                        <div class="col-10">
+                            <div class="form-floating">
+                                <input type="text" id="username" name="username" class="form-control"
+                                       placeholder="아이디">
+                                <label for="username">아이디</label>
                             </div>
                         </div>
-                        <div class="row justify-content-center mb-2">
-                            <div class="col-10">
-                                <div class="form-floating">
-                                    <input type="password" id="password" name="password" class="form-control"
-                                           placeholder="비밀번호">
-                                    <label for="password">비밀번호</label>
-                                </div>
+                    </div>
+                    <div class="row justify-content-center mb-2">
+                        <div class="col-10">
+                            <div class="form-floating">
+                                <input type="password" id="password" name="password" class="form-control"
+                                       placeholder="비밀번호">
+                                <label for="password">비밀번호</label>
                             </div>
                         </div>
-                        <div class="row justify-content-center">
-                            <div class="col-10 text-center">
-                                <button class="btn btn-outline-success col-5">로그인</button>
-                                <div class="col-5 btn btn-outline-secondary"
-                                     onclick="location.href='/user/register.jsp'">회원가입
-                                </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-10 text-center">
+                            <button class="btn btn-outline-success col-5" onclick="auth()">로그인</button>
+                            <div class="col-5 btn btn-outline-secondary"
+                                 onclick="location.href='/user/register.jsp'">회원가입
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
