@@ -50,10 +50,10 @@
                     <a href="/film/printList.jsp" class="nav-link link-dark">영화</a>
                 </li>
                 <li class="nav-item mx-1">
-                    <a href="#" class="nav-link link-dark">극장</a>
+                    <a href="/cinema/printList.jsp" class="nav-link link-dark">극장</a>
                 </li>
                 <li class="nav-item mx-1">
-                    <a href="#" class="nav-link link-dark">상영 정보</a>
+                    <a href="/screenInfo/printList.jsp" class="nav-link link-dark">상영 정보</a>
                 </li>
             </ul>
         </header>
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center mb-2">
+                    <div class="row justify-content-center mb-3">
                         <div class="col-10">
                             <div class="form-floating">
                                 <input type="password" id="password" name="password" class="form-control"
@@ -81,7 +81,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
+                    <div class="row justify-content-center mb-3">
                         <div class="col-10 text-center">
                             <button class="btn btn-outline-success col-5" onclick="auth()">로그인</button>
                             <div class="col-5 btn btn-outline-secondary"

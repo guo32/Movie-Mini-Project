@@ -12,6 +12,8 @@
 <html>
 <head>
     <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 </head>
 <body>
 <%
@@ -29,7 +31,11 @@
     session.invalidate();
 %>
 <script>
-    alert("정상적으로 탈퇴되었습니다.");
+    Swal.fire({
+        icon: 'success',
+        title: '회원 탈퇴',
+        text: '정상적으로 처리되었습니다.',
+    });
     location.href = "../index.jsp";
 </script>
 </body>

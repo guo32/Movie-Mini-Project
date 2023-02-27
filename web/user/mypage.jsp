@@ -19,6 +19,8 @@
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/resource/css/main.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -39,10 +41,23 @@
                 %>
                 <script>
                     function checkDelete() {
-                        let result = confirm("정말로 탈퇴하시겠습니까?");
-
-                        if (result) {
-                            location.href = "/user/delete.jsp?id" + ${login.id};
+                        if(${login.username == 'admin'}) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: '회원 탈퇴 불가',
+                                text: '탈퇴가 불가능한 계정입니다.',
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: '회원 탈퇴',
+                                text: '정말로 탈퇴하시겠습니까?',
+                                showCancelButton: true,
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.href = "/user/delete.jsp?id" + ${login.id};
+                                }
+                            });
                         }
                     }
                 </script>
@@ -89,7 +104,16 @@
                                                 <div class="btn btn-outline-success btn-sm mb-2" onclick="location.href='request_grade.jsp'">등업 신청</div>
                                             </c:when>
                                             <c:otherwise>
-                                                <div class="btn btn-outline-success btn-sm mb-2" onclick="alert('처리되지 않은 신청 내역이 존재합니다.\n신청 내역 삭제 후 신청해주세요.\n[등업 신청 현황 > 취소]')">등업 신청</div>
+                                                <script>
+                                                    function showAlertForRequestGrade() {
+                                                        Swal.fire({
+                                                            icon: 'warning',
+                                                            title: '등업 신청 불가',
+                                                            html: '<p>처리되지 않은 신청 내역이 존재합니다.<br>신청 내역 삭제 후 신청해주세요.<br></p><p class="text-secondary">[등업 신청 현황 > 취소]</p>',
+                                                        });
+                                                    }
+                                                </script>
+                                                <div class="btn btn-outline-success btn-sm mb-2" onclick="showAlertForRequestGrade()">등업 신청</div>
                                             </c:otherwise>
                                         </c:choose>
                                     </li>

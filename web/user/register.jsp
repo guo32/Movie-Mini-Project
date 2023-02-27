@@ -69,10 +69,10 @@
                     <a href="/film/printList.jsp" class="nav-link link-dark">영화</a>
                 </li>
                 <li class="nav-item mx-1">
-                    <a href="#" class="nav-link link-dark">극장</a>
+                    <a href="/cinema/printList.jsp" class="nav-link link-dark">극장</a>
                 </li>
                 <li class="nav-item mx-1">
-                    <a href="#" class="nav-link link-dark">상영 정보</a>
+                    <a href="/screenInfo/printList.jsp" class="nav-link link-dark">상영 정보</a>
                 </li>
             </ul>
         </header>

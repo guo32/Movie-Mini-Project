@@ -16,6 +16,7 @@ let auth = () => {
                 location.href = "../index.jsp";
             } else {
                 Swal.fire({
+                    icon: "warning",
                     title: "로그인 실패",
                     text: "아이디 또는 비밀번호가 일치하지 않습니다.",
                 });

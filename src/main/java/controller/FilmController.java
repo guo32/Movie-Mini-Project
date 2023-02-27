@@ -95,6 +95,13 @@ public class FilmController {
     }
 
     public ArrayList<FilmDTO> selectAll(int pageNo) {
+        /* 범위에서 벗어나는 페이지 처리 */
+        if (pageNo > countTotalPage()) {
+            pageNo = countTotalPage();
+        } else if (pageNo < 1) {
+            pageNo = 1;
+        }
+
         ArrayList<FilmDTO> list = new ArrayList<>();
         String query = "SELECT * FROM `film` ORDER BY `id` DESC LIMIT ?, ?";
 

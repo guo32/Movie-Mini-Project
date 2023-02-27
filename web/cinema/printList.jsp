@@ -47,14 +47,15 @@
     int totalPage = cinemaController.countTotalPage();
     int startNum;
     int endNum;
-    if (pageNo <= 3) {
+
+    if (totalPage <= 5) {
+        startNum = 1;
+        endNum = totalPage;
+    } else if (pageNo <= 3) {
         startNum = 1;
         endNum = 5;
     } else if (pageNo > totalPage - 3) {
         startNum = totalPage - 4;
-        endNum = totalPage;
-    } else if (totalPage <= 5) {
-        startNum = 1;
         endNum = totalPage;
     } else {
         startNum = pageNo - 2;

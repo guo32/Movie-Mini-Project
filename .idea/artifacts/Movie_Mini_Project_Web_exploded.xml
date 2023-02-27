@@ -5,6 +5,9 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="Movie-Mini-Project" />
+          <element id="library" level="application" name="swiper" />
+          <element id="library" level="application" name="sweetalert2" />
+          <element id="library" level="application" name="jquery-3.6.3" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.29" />
