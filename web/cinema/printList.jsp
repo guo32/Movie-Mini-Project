@@ -29,8 +29,6 @@
 </head>
 <body>
 <%
-    request.setCharacterEncoding("utf-8");
-
     ConnectionMaker connectionMaker = new MySqlConnectionMaker();
     CinemaController cinemaController = new CinemaController(connectionMaker);
 

@@ -24,11 +24,12 @@
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/resource/css/main.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="../assets/js/film/searchFilmTitle.js"></script>
 </head>
 <body>
 <%
-    request.setCharacterEncoding("utf-8");
-
     ConnectionMaker connectionMaker = new MySqlConnectionMaker();
     FilmController filmController = new FilmController(connectionMaker);
 
@@ -68,80 +69,93 @@
 %>
 <div class="container-fluid">
     <div class="container">
-        <%@include file="../header.jsp"%>
+        <%@include file="../header.jsp" %>
+        <div class="d-flex align-items-center mb-4">
+            <input type="search" id="film-search" name="film-search" class="form-control w-100" placeholder="영화 제목 검색" onkeypress="if(event.keyCode==13) {search()}"/>
+            <button type="button" class="flex-shrink-0 dropdown btn" onclick="search()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search"
+                     viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </button>
+        </div>
         <c:if test="${login != null && login.grade == 3}">
-            <button class="btn btn-outline-success btn-sm mb-2" onclick="location.href='/film/register.jsp'">영화 등록하기</button>
+            <button class="btn btn-outline-success btn-sm mb-2" onclick="location.href='/film/register.jsp'">영화 등록하기
+            </button>
         </c:if>
-        <c:choose>
-            <c:when test="${empty filmList}">
-                <div>
-                    등록된 영화가 없습니다.
-                </div>
-            </c:when>
-            <c:otherwise>
-                <c:forEach var="film" items="${filmList}">
-                    <div class="row mb-2">
-                        <div class="col mb-6">
-                            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-m d-250 position-relative">
-                                <div class="col p-4 d-flex flex-column position-static">
-                                    <h3 class="mb-1">${film.title}</h3>
-                                    <p class="card-text mb-auto">${film.description}</p>
-                                    <a href="/film/printOne.jsp?id=${film.id}" class="stretched-link">상세보기</a>
-                                </div>
-                                <div class="col-auto d-none d-lg-block">
-                                    <svg class="bd-placeholder-img" width="150" height="200" role="img" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                        <c:choose>
-                                            <c:when test="${film.poster == null}">
-                                                <rect width="100%" height="100%" fill="#0d0d0d"></rect>
-                                                <text x="30%" y="50%" fill="#f2f2f2">No image</text>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <image href="../resource/img/${film.poster}" width="100%"/>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </svg>
+        <div id="film-list">
+            <c:choose>
+                <c:when test="${empty filmList}">
+                    <div>
+                        등록된 영화가 없습니다.
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach var="film" items="${filmList}">
+                        <div class="row mb-2">
+                            <div class="col mb-6">
+                                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-m d-250 position-relative">
+                                    <div class="col p-4 d-flex flex-column position-static">
+                                        <h3 class="mb-1">${film.title}</h3>
+                                        <p class="card-text mb-auto">${film.description}</p>
+                                        <a href="/film/printOne.jsp?id=${film.id}" class="stretched-link">상세보기</a>
+                                    </div>
+                                    <div class="col-auto d-none d-lg-block">
+                                        <svg class="bd-placeholder-img" width="150" height="200" role="img"
+                                             preserveAspectRatio="xMidYMid slice" focusable="false">
+                                            <c:choose>
+                                                <c:when test="${film.poster == null}">
+                                                    <rect width="100%" height="100%" fill="#0d0d0d"></rect>
+                                                    <text x="30%" y="50%" fill="#f2f2f2">No image</text>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <image href="../resource/img/${film.poster}" width="100%"/>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </c:forEach>
+                    <div class="d-flex justify-content-center">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a href="/film/printList.jsp?pageNo=${1}" class="page-link">
+                                        <span>&lt;</span>
+                                    </a>
+                                </li>
+                                <c:forEach begin="${startPage}" end="${endPage}" var="i">
+                                    <c:choose>
+                                        <c:when test="${currentPage eq i}">
+                                            <li class="page-item active">
+                                                <a href="/film/printList.jsp?pageNo=${i}" class="page-link">
+                                                    <span>${i}</span>
+                                                </a>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="page-item">
+                                                <a href="/film/printList.jsp?pageNo=${i}" class="page-link">
+                                                    <span>${i}</span>
+                                                </a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <li class="page-item">
+                                    <a href="/film/printList.jsp?pageNo=${totalPage}" class="page-link">
+                                        <span>&gt;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
-                </c:forEach>
-                <div class="d-flex justify-content-center">
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a href="/film/printList.jsp?pageNo=${1}" class="page-link">
-                                    <span>&lt;</span>
-                                </a>
-                            </li>
-                            <c:forEach begin="${startPage}" end="${endPage}" var="i">
-                                <c:choose>
-                                    <c:when test="${currentPage eq i}">
-                                        <li class="page-item active">
-                                            <a href="/film/printList.jsp?pageNo=${i}" class="page-link">
-                                                <span>${i}</span>
-                                            </a>
-                                        </li>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <li class="page-item">
-                                            <a href="/film/printList.jsp?pageNo=${i}" class="page-link">
-                                                <span>${i}</span>
-                                            </a>
-                                        </li>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                            <li class="page-item">
-                                <a href="/film/printList.jsp?pageNo=${totalPage}" class="page-link">
-                                    <span>&gt;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </c:otherwise>
-        </c:choose>
-        <%@ include file="../footer.jsp"%>
+                </c:otherwise>
+            </c:choose>
+        </div>
+        <%@ include file="../footer.jsp" %>
     </div>
 </div>
 </body>

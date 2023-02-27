@@ -156,4 +156,35 @@ public class FilmController {
 
         return totalPage;
     }
+
+    public ArrayList<FilmDTO> searchFilmTitle(String search) {
+        ArrayList<FilmDTO> list = new ArrayList<>();
+        String query = "SELECT * FROM `film` WHERE `title` LIKE ?";
+        String text = "%" + search + "%";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, text);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                FilmDTO filmDTO = new FilmDTO();
+                filmDTO.setId(resultSet.getInt("id"));
+                filmDTO.setTitle(resultSet.getString("title"));
+                filmDTO.setDescription(resultSet.getString("description"));
+                filmDTO.setDirector(resultSet.getString("director"));
+                filmDTO.setRating(resultSet.getString("rating"));
+                filmDTO.setPoster(resultSet.getString("poster"));
+
+                list.add(filmDTO);
+            }
+
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 }

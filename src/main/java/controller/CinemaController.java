@@ -102,6 +102,13 @@ public class CinemaController {
     }
 
     public ArrayList<CinemaDTO> selectAll(int pageNo) {
+        /* 범위에서 벗어나는 페이지 처리 */
+        if (pageNo > countTotalPage()) {
+            pageNo = countTotalPage();
+        } else if (pageNo < 1) {
+            pageNo = 1;
+        }
+
         ArrayList<CinemaDTO> list = new ArrayList<>();
         String query = "SELECT * FROM `cinema` ORDER BY `name` LIMIT ?, ?";
 
