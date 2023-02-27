@@ -18,30 +18,11 @@
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/resource/css/main.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="../assets/js/user/register.js"></script>
 </head>
 <body>
-<script>
-    function checkForm() {
-        let username = document.getElementById("username").value;
-        let password = document.getElementById("password").value;
-        let nickname = document.getElementById("nickname").value;
-
-        if (username == '' || username == null) {
-            alert("아이디는 비워둘 수 없습니다.");
-            return;
-        }
-        if (password == '' || password == null) {
-            alert("비밀번호는 비워둘 수 없습니다.");
-            return;
-        }
-        if (nickname == '' || nickname == null) {
-            alert("닉네임은 비워둘 수 없습니다.");
-            return;
-        }
-
-        document.registerForm.submit();
-    }
-</script>
 <div class="container-fluid">
     <div class="container">
         <nav class="py-2 border-bottom rounded-bottom" style="background-color: #898C2B">
@@ -79,13 +60,13 @@
         <div class="row my-5 align-items-center">
             <div class="row justify-content-center">
                 <div class="col-6" style="background-color: #F2F2F2; border-radius: 1em;">
-                    <form action="/user/register_logic.jsp" method="post" name="registerForm">
+                    <form action="/user/register_logic.jsp" method="post" name="registerForm" id="register-form">
                         <div class="row justify-content-center m-3" style="font-size: xx-large">
                             회원가입
                         </div>
                         <div class="row justify-content-center mb-2">
                             <div class="col-10">
-                                <div class="form-floating">
+                                <div class="form-floating" id="div-for-username">
                                     <input type="text" id="username" name="username" class="form-control"
                                            placeholder="아이디">
                                     <label for="username">아이디</label>
@@ -94,7 +75,7 @@
                         </div>
                         <div class="row justify-content-center mb-2">
                             <div class="col-10">
-                                <div class="form-floating">
+                                <div class="form-floating" id="div-for-password">
                                     <input type="password" id="password" name="password" class="form-control"
                                            placeholder="비밀번호">
                                     <label for="password">비밀번호</label>
@@ -103,7 +84,7 @@
                         </div>
                         <div class="row justify-content-center mb-2">
                             <div class="col-10">
-                                <div class="form-floating">
+                                <div class="form-floating" id="div-for-nickname">
                                     <input type="text" id="nickname" name="nickname" class="form-control"
                                            placeholder="닉네임">
                                     <label for="nickname">닉네임</label>
@@ -112,7 +93,7 @@
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-10 text-center">
-                                <div class="btn btn-outline-primary col-5" onclick="checkForm()">회원가입</div>
+                                <div class="btn btn-outline-primary col-5" onclick="submitForm()">회원가입</div>
                                 <div class="col-5 btn btn-outline-danger" onclick="location.href='../index.jsp'">취소
                                 </div>
                             </div>

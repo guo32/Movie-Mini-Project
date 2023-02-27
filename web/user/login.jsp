@@ -76,7 +76,7 @@
                         <div class="col-10">
                             <div class="form-floating">
                                 <input type="password" id="password" name="password" class="form-control"
-                                       placeholder="비밀번호">
+                                       placeholder="비밀번호" onkeypress="if(event.keyCode==13) {auth()}">
                                 <label for="password">비밀번호</label>
                             </div>
                         </div>
