@@ -1,4 +1,4 @@
-package servlet;
+package servlet.cinema;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

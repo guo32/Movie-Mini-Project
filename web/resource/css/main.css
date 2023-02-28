@@ -43,13 +43,13 @@
 }
 
 .page-link {
-    color: #736055;
+    color: #0d0d0d;
 }
 
 .active>.page-link {
     color: #FFFFFF !important;
-    background-color: #736055 !important;
-    border-color: #736055;
+    background-color: #031059 !important;
+    border-color: #031059;
 }
 
 .active>.page-link:hover {

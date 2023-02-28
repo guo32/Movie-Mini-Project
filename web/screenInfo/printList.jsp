@@ -34,6 +34,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="../assets/js/cinema/changeCinemaList.js"></script>
+    <script src="../assets/js/screenInfo/changeScreenInfoList.js"></script>
 </head>
 <body>
 <%
@@ -83,7 +84,7 @@
                 <ul class="nav col-12 col-md-auto mb-2 mb-md-0" id="cinema-list">
                     <c:forEach var="cinema" items="${cinemaController.selectByCountry('서울')}">
                         <li>
-                            <a href="#" class="nav-link p-1 link-dark bg-light m-1 rounded" style="font-size: 90%">${cinema.name}</a>
+                            <a class="nav-link p-1 link-dark bg-light m-1 rounded" style="font-size: 90%" onclick="changeScreenInfo(${cinema.id})">${cinema.name}</a>
                         </li>
                     </c:forEach>
                 </ul>
@@ -93,7 +94,7 @@
             <button class="btn btn-outline-success btn-sm mb-2" onclick="location.href='/screenInfo/register.jsp'">상영 정보 등록하기</button>
             <button class="btn btn-outline-secondary btn-sm mb-2"  onclick="location.href='/screenInfo/edit.jsp'">상영 정보 편집하기</button>
         </c:if>
-        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center" id="screen-info-wrap">
             <c:forEach var="date" items="${dateSet}">
                 <div class="col">
                     <div class="card mb-4 rounded-3 shadow-sm">

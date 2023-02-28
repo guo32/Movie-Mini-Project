@@ -29,7 +29,7 @@ let printCinemaList = (list) => {
     } else {
         list.forEach(cinema => {
             let li = $(document.createElement("li"));
-            let link = $(document.createElement("a")).attr("class", "nav-link p-1 link-dark bg-light m-1 rounded").attr("style", "font-size: 90%").text(cinema.name);
+            let link = $(document.createElement("a")).attr("class", "nav-link p-1 link-dark bg-light m-1 rounded").attr("style", "font-size: 90%").attr("onclick", "changeScreenInfo(" + cinema.id + ")").text(cinema.name);
             li.append(link);
             ul.append(li);
         });

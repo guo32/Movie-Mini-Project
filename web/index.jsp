@@ -79,7 +79,7 @@
                 </script>
                 <div class="row">
                     <div class="col-6">
-                        <div class="col-12 p-3 rounded shadow-sm my-2" style="background-color: rgba(191, 187, 184, 0.5) !important;">
+                        <div class="col-12 p-3 rounded shadow-sm my-2" style="background-color: #d9d9d9 !important;">
                             <h4 class="mb-3" onclick="location.href='/film/printList.jsp'">영화</h4>
                             <c:forEach var="film" items="${filmList}" begin="0" end="3">
                                 <div class="row">
@@ -110,7 +110,7 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="col-12 p-3 rounded shadow-sm my-2" style="background-color: rgba(191, 187, 184, 0.5) !important;">
+                        <div class="col-12 p-3 rounded shadow-sm my-2" style="background-color: #d9d9d9 !important;">
                             <h4 class="mb-3" onclick="location.href='/cinema/printList.jsp'">극장</h4>
                             <c:choose>
                                 <c:when test="${empty cinemaList}">

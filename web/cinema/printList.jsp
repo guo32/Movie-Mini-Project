@@ -68,12 +68,19 @@
 <div class="container-fluid">
     <div class="container">
         <%@include file="../header.jsp" %>
+        <!-- 임시 (수정할 것) -->
+        <div class="d-flex align-items-center mb-4">
+            <input type="search" id="film-search" name="film-search" class="form-control w-100" placeholder="영화관 검색" onkeypress="if(event.keyCode==13) {search()}"/>
+            <button type="button" class="flex-shrink-0 dropdown btn" onclick="search()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search"
+                     viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </button>
+        </div>
         <c:if test="${login != null && login.grade == 3}">
             <button class="btn btn-outline-success btn-sm mb-2" onclick="location.href='/cinema/register.jsp'">극장 등록하기</button>
         </c:if>
-        <div class="col-12 text-center border-bottom mb-3 mt-5">
-            <h2>극장</h2>
-        </div>
         <c:choose>
             <c:when test="${empty cinemaList}">
                 <div>
