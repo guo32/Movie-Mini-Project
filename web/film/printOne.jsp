@@ -177,7 +177,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-center fs-5" style="color: #898C2B">
+                                                    <td class="text-center fs-5" style="color: #023E73">
                                                         <c:choose>
                                                             <c:when test="${ratingAverage < 2}">★</c:when>
                                                             <c:when test="${ratingAverage < 3}">★★</c:when>
@@ -214,7 +214,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-center fs-5" style="color: #898C2B">
+                                                            <td class="text-center fs-5" style="color: #023E73">
                                                                 <c:choose>
                                                                     <c:when test="${ratingAverageArray[0] < 2}">★</c:when>
                                                                     <c:when test="${ratingAverageArray[0] < 3}">★★</c:when>
@@ -253,7 +253,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-center fs-5" style="color: #898C2B">
+                                                            <td class="text-center fs-5" style="color: #023E73">
                                                                 <c:choose>
                                                                     <c:when test="${ratingAverageArray[1] < 2}">★</c:when>
                                                                     <c:when test="${ratingAverageArray[1] < 3}">★★</c:when>
@@ -272,7 +272,7 @@
                                     <div class="shadow-sm rounded p-2 mt-3" style="background-color: #F2F2F2">
                                         <table class="table table-borderless">
                                             <tr>
-                                                <td class="col-10" style="color: #898C2B">
+                                                <td class="col-10" style="color: #023E73">
                                                     <c:choose>
                                                         <c:when test="${review.rating == 1}">★☆☆☆☆ 1</c:when>
                                                         <c:when test="${review.rating == 2}">★★☆☆☆ 2</c:when>

@@ -31,6 +31,9 @@
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/resource/css/main.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="../assets/js/cinema/changeCinemaList.js"></script>
 </head>
 <body>
 <%
@@ -61,10 +64,31 @@
     pageContext.setAttribute("filmController", filmController);
     pageContext.setAttribute("cinemaController", cinemaController);
     pageContext.setAttribute("theaterController", theaterController);
+    pageContext.setAttribute("countryList", cinemaController.selectCountry());
 %>
 <div class="container-fluid">
     <div class="container">
         <%@include file="../header.jsp" %>
+        <div class="rounded mb-3">
+            <div class="container d-flex flex-wrap">
+                <ul class="nav me-auto" id="country-list">
+                    <c:forEach var="country" items="${countryList}">
+                        <li class="nav-item me-1 rounded-top p-2" id="item-${country}" onclick="changeCinema('${country}')" <c:if test="${country == '서울'}">style="background-color: #023E73; color: #FFFFFF"</c:if><c:if test="${country != '서울'}">style="background-color: #f2f2f2; color: #0d0d0d"</c:if>>
+                                ${country}
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+            <div class="rounded p-1" style="background-color: #023E73;">
+                <ul class="nav col-12 col-md-auto mb-2 mb-md-0" id="cinema-list">
+                    <c:forEach var="cinema" items="${cinemaController.selectByCountry('서울')}">
+                        <li>
+                            <a href="#" class="nav-link p-1 link-dark bg-light m-1 rounded" style="font-size: 90%">${cinema.name}</a>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </div>
         <c:if test="${login != null && login.grade == 3}">
             <button class="btn btn-outline-success btn-sm mb-2" onclick="location.href='/screenInfo/register.jsp'">상영 정보 등록하기</button>
             <button class="btn btn-outline-secondary btn-sm mb-2"  onclick="location.href='/screenInfo/edit.jsp'">상영 정보 편집하기</button>

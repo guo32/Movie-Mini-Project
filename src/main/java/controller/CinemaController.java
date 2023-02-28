@@ -235,4 +235,31 @@ public class CinemaController {
         return list;
     }
 
+    public ArrayList<CinemaDTO> selectByCountry(String country) {
+        ArrayList<CinemaDTO> list = new ArrayList<>();
+        String query = "SELECT * FROM `cinema` WHERE `country` = ?";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, country);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                CinemaDTO cinemaDTO = new CinemaDTO();
+                cinemaDTO.setId(resultSet.getInt("id"));
+                cinemaDTO.setName(resultSet.getString("name"));
+                cinemaDTO.setCountry(resultSet.getString("country"));
+
+                list.add(cinemaDTO);
+            }
+
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
 }

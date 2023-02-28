@@ -25,15 +25,14 @@
 <body>
 <div class="container-fluid">
     <div class="container">
-        <nav class="py-2 border-bottom rounded-bottom" style="background-color: #898C2B">
+        <nav class="py-2 border-bottom rounded-bottom" style="background-color: #031059">
             <div class="container d-flex flex-wrap">
                 <ul class="nav me-auto"></ul>
                 <ul class="nav">
                     <li class="nav-item mx-2">
-                        <a href="/user/login.jsp" class="link-light text-decoration-none"
-                           style="font-size: 0.9em">로그인</a>
+                        <a href="/user/login.jsp" class="link-light text-decoration-none" style="font-size: 0.9em">로그인</a>
                     </li>
-                    <li>|</li>
+                    <li style="color: #d9d9d9">|</li>
                     <li class="nav-item mx-2">
                         <a href="/user/register.jsp" class="link-light text-decoration-none" style="font-size: 0.9em">회원가입</a>
                     </li>
