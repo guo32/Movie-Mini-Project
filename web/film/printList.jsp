@@ -70,7 +70,8 @@
 <div class="container-fluid">
     <div class="container">
         <%@include file="../header.jsp" %>
-        <div class="d-flex align-items-center mb-4">
+        <!-- search -->
+        <div class="d-flex align-items-center mb-4 search-form">
             <input type="search" id="film-search" name="film-search" class="form-control w-100" placeholder="영화 제목 검색" onkeypress="if(event.keyCode==13) {search()}"/>
             <button type="button" class="flex-shrink-0 dropdown btn" onclick="search()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search"

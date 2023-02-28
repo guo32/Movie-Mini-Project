@@ -74,7 +74,7 @@
             <div class="container d-flex flex-wrap">
                 <ul class="nav me-auto" id="country-list">
                     <c:forEach var="country" items="${countryList}">
-                        <li class="nav-item me-1 rounded-top p-2" id="item-${country}" onclick="changeCinema('${country}')" <c:if test="${country == '서울'}">style="background-color: #023E73; color: #FFFFFF"</c:if><c:if test="${country != '서울'}">style="background-color: #f2f2f2; color: #0d0d0d"</c:if>>
+                        <li class="nav-item me-1 rounded-top p-2" id="item-${country}" onclick="changeCinema('${country}', 1)" <c:if test="${country == '서울'}">style="background-color: #023E73; color: #FFFFFF"</c:if><c:if test="${country != '서울'}">style="background-color: #d9d9d9; color: #0d0d0d"</c:if>>
                                 ${country}
                         </li>
                     </c:forEach>

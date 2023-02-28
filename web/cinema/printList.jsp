@@ -29,6 +29,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="../assets/js/cinema/searchCinema.js"></script>
+    <script src="../assets/js/cinema/changeCinemaList.js"></script>
 </head>
 <body>
 <%
@@ -67,12 +68,34 @@
     pageContext.setAttribute("startPage", startNum);
     pageContext.setAttribute("endPage", endNum);
     pageContext.setAttribute("totalPage", totalPage);
+    pageContext.setAttribute("countryList", cinemaController.selectCountry());
+    pageContext.setAttribute("cinemaController", cinemaController);
 %>
 <div class="container-fluid">
     <div class="container">
         <%@include file="../header.jsp" %>
-        <!-- 임시 (수정할 것) -->
-        <div class="d-flex align-items-center mb-4">
+        <div class="rounded mb-3">
+            <div class="container d-flex flex-wrap">
+                <ul class="nav me-auto" id="country-list">
+                    <c:forEach var="country" items="${countryList}">
+                        <li class="nav-item me-1 rounded-top p-2" id="item-${country}" onclick="changeCinema('${country}', 0)" <c:if test="${country == '서울'}">style="background-color: #023E73; color: #FFFFFF"</c:if><c:if test="${country != '서울'}">style="background-color: #d9d9d9; color: #0d0d0d"</c:if>>
+                                ${country}
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+            <div class="rounded p-1" style="background-color: #023E73;">
+                <ul class="nav col-12 col-md-auto mb-2 mb-md-0" id="cinema-list">
+                    <c:forEach var="cinema" items="${cinemaController.selectByCountry('서울')}">
+                        <li>
+                            <a class="nav-link p-1 link-dark bg-light m-1 rounded" style="font-size: 90%" href="/cinema/printOne.jsp?id=${cinema.id}">${cinema.name}</a>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </div>
+        <!-- search -->
+        <div class="d-flex align-items-center mb-4 search-form">
             <input type="search" id="cinema-search" name="cinema-search" class="form-control w-100" placeholder="영화관 검색"
                    onkeypress="if(event.keyCode==13) {search()}"/>
             <button type="button" class="flex-shrink-0 dropdown btn" onclick="search()">
@@ -86,7 +109,7 @@
             <button class="btn btn-outline-success btn-sm mb-2" onclick="location.href='/cinema/register.jsp'">극장 등록하기
             </button>
         </c:if>
-        <div id="cinema-list">
+        <div id="cinema-list-in-page">
             <c:choose>
                 <c:when test="${empty cinemaList}">
                     <div>

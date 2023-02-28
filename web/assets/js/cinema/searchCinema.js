@@ -25,7 +25,7 @@ let search = () => {
 }
 
 let printList = (list) => {
-    let result = $("#cinema-list");
+    let result = $("#cinema-list-in-page");
     if (list.length == 0) {
         Swal.fire({
             icon: 'warning',

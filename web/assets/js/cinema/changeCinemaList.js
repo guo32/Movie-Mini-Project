@@ -1,6 +1,6 @@
-let changeCinema = (country) => {
+let changeCinema = (country, num) => {
     // 시도 메뉴 class 초기화
-    $("#country-list").children().attr("class", "nav-item me-1 rounded-top p-2").attr("style", "background-color: #f2f2f2; color: #0d0d0d");
+    $("#country-list").children().attr("class", "nav-item me-1 rounded-top p-2").attr("style", "background-color: #d9d9d9; color: #0d0d0d");
 
     // 선택된 메뉴 class 변경
     let id = "#item-" + country;
@@ -16,12 +16,12 @@ let changeCinema = (country) => {
         success: (message) => {
             let response = JSON.parse(message);
             let cinemaList = JSON.parse(response.list);
-            printCinemaList(cinemaList);
+            printCinemaList(cinemaList, num);
         },
     });
 }
 
-let printCinemaList = (list) => {
+let printCinemaList = (list, num) => {
     let ul = $("#cinema-list").empty();
     if (list.length == 0) {
         let li = $(document.createElement("li")).text("영화관이 존재하지 않습니다.");
@@ -29,7 +29,12 @@ let printCinemaList = (list) => {
     } else {
         list.forEach(cinema => {
             let li = $(document.createElement("li"));
-            let link = $(document.createElement("a")).attr("class", "nav-link p-1 link-dark bg-light m-1 rounded").attr("style", "font-size: 90%").attr("onclick", "changeScreenInfo(" + cinema.id + ")").text(cinema.name);
+            let link = $(document.createElement("a")).attr("class", "nav-link p-1 link-dark bg-light m-1 rounded").attr("style", "font-size: 90%").text(cinema.name);
+            if (num == 0) {
+                link.attr("href", "/cinema/printOne.jsp?id=" + cinema.id);
+            } else {
+                link.attr("onclick", "changeScreenInfo(" + cinema.id + ")");
+            }
             li.append(link);
             ul.append(li);
         });

@@ -47,7 +47,7 @@
     function checkDelete() {
         let result = confirm("극장 <${cinema.name}>을(를) 정말로 삭제하시겠습니까?");
 
-        if(result) {
+        if (result) {
             location.href = "/cinema/delete.jsp?id=" + ${cinema.id};
         }
     }
@@ -59,12 +59,17 @@
             <div class="row g-5">
                 <!-- 자세한 정보 -->
                 <div class="col-md-8 mb-5">
-                    <c:if test="${login != null && login.grade == 3}">
-                        <div class="mb-2">
-                            <button class="badge bg-success fw-light border-0" onclick="location.href='/cinema/update.jsp?id=${cinema.id}'">수정</button>
+                    <div class="mb-2">
+                        <button class="badge bg-dark fw-light border-0"
+                                onclick="location.href='/cinema/printList.jsp'">목록
+                        </button>
+                        <c:if test="${login != null && login.grade == 3}">
+                            <button class="badge bg-success fw-light border-0"
+                                    onclick="location.href='/cinema/update.jsp?id=${cinema.id}'">수정
+                            </button>
                             <button class="badge bg-danger fw-light border-0" onclick="checkDelete()">삭제</button>
-                        </div>
-                    </c:if>
+                        </c:if>
+                    </div>
                     <article class="blog-post">
                         <h2 class="blog-post-title">${cinema.name}</h2>
                         <hr>
@@ -105,9 +110,11 @@
                                                     <span class="badge bg-success fw-light">${theaterController.selectById(screenInfo.theater_id).name}</span>
                                                 </td>
                                                 <td>&nbsp;&nbsp;
-                                                    <fmt:formatDate value="${screenInfo.start_time}" pattern="yy/MM/dd HH:mm"/>
+                                                    <fmt:formatDate value="${screenInfo.start_time}"
+                                                                    pattern="yy/MM/dd HH:mm"/>
                                                     -
-                                                    <fmt:formatDate value="${screenInfo.end_time}" pattern="yy/MM/dd HH:mm"/>
+                                                    <fmt:formatDate value="${screenInfo.end_time}"
+                                                                    pattern="yy/MM/dd HH:mm"/>
                                                 </td>
                                             </tr>
                                         </c:forEach>
