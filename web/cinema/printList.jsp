@@ -26,6 +26,9 @@
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/resource/css/main.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="../assets/js/cinema/searchCinema.js"></script>
 </head>
 <body>
 <%
@@ -70,7 +73,8 @@
         <%@include file="../header.jsp" %>
         <!-- 임시 (수정할 것) -->
         <div class="d-flex align-items-center mb-4">
-            <input type="search" id="film-search" name="film-search" class="form-control w-100" placeholder="영화관 검색" onkeypress="if(event.keyCode==13) {search()}"/>
+            <input type="search" id="cinema-search" name="cinema-search" class="form-control w-100" placeholder="영화관 검색"
+                   onkeypress="if(event.keyCode==13) {search()}"/>
             <button type="button" class="flex-shrink-0 dropdown btn" onclick="search()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search"
                      viewBox="0 0 16 16">
@@ -79,66 +83,69 @@
             </button>
         </div>
         <c:if test="${login != null && login.grade == 3}">
-            <button class="btn btn-outline-success btn-sm mb-2" onclick="location.href='/cinema/register.jsp'">극장 등록하기</button>
+            <button class="btn btn-outline-success btn-sm mb-2" onclick="location.href='/cinema/register.jsp'">극장 등록하기
+            </button>
         </c:if>
-        <c:choose>
-            <c:when test="${empty cinemaList}">
-                <div>
-                    등록된 극장이 없습니다.
-                </div>
-            </c:when>
-            <c:otherwise>
-                <c:forEach var="cinema" items="${cinemaList}">
-                    <div class="row mb-2">
-                        <div class="col mb-6">
-                            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-m d-250 position-relative">
-                                <div class="col p-3 d-flex flex-column position-static">
-                                    <p class="card-text mb-auto text-muted"><b class="fs-5 mx-2 mt-1 text-dark">
-                                            ${cinema.name}</b> ${cinema.country} ${cinema.autonomous_district} ${cinema.detailed_address}
-                                        | ${cinema.phone}
-                                    </p>
-                                    <a href="/cinema/printOne.jsp?id=${cinema.id}" class="stretched-link"></a>
+        <div id="cinema-list">
+            <c:choose>
+                <c:when test="${empty cinemaList}">
+                    <div>
+                        등록된 극장이 없습니다.
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach var="cinema" items="${cinemaList}">
+                        <div class="row mb-2">
+                            <div class="col mb-6">
+                                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-m d-250 position-relative">
+                                    <div class="col p-3 d-flex flex-column position-static">
+                                        <p class="card-text mb-auto text-muted"><b class="fs-5 mx-2 mt-1 text-dark">
+                                                ${cinema.name}</b> ${cinema.country} ${cinema.autonomous_district} ${cinema.detailed_address}
+                                            | ${cinema.phone}
+                                        </p>
+                                        <a href="/cinema/printOne.jsp?id=${cinema.id}" class="stretched-link"></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </c:forEach>
+                    <div class="d-flex justify-content-center">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a href="/cinema/printList.jsp?pageNo=${1}" class="page-link">
+                                        <span>&lt;</span>
+                                    </a>
+                                </li>
+                                <c:forEach begin="${startPage}" end="${endPage}" var="i">
+                                    <c:choose>
+                                        <c:when test="${currentPage eq i}">
+                                            <li class="page-item active">
+                                                <a href="/cinema/printList.jsp?pageNo=${i}" class="page-link">
+                                                    <span>${i}</span>
+                                                </a>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="page-item">
+                                                <a href="/cinema/printList.jsp?pageNo=${i}" class="page-link">
+                                                    <span>${i}</span>
+                                                </a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <li class="page-item">
+                                    <a href="/cinema/printList.jsp?pageNo=${totalPage}" class="page-link">
+                                        <span>&gt;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
-                </c:forEach>
-                <div class="d-flex justify-content-center">
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a href="/cinema/printList.jsp?pageNo=${1}" class="page-link">
-                                    <span>&lt;</span>
-                                </a>
-                            </li>
-                            <c:forEach begin="${startPage}" end="${endPage}" var="i">
-                                <c:choose>
-                                    <c:when test="${currentPage eq i}">
-                                        <li class="page-item active">
-                                            <a href="/cinema/printList.jsp?pageNo=${i}" class="page-link">
-                                                <span>${i}</span>
-                                            </a>
-                                        </li>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <li class="page-item">
-                                            <a href="/cinema/printList.jsp?pageNo=${i}" class="page-link">
-                                                <span>${i}</span>
-                                            </a>
-                                        </li>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                            <li class="page-item">
-                                <a href="/cinema/printList.jsp?pageNo=${totalPage}" class="page-link">
-                                    <span>&gt;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </c:otherwise>
-        </c:choose>
+                </c:otherwise>
+            </c:choose>
+        </div>
         <%@ include file="../footer.jsp" %>
     </div>
 </div>

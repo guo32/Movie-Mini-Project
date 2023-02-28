@@ -262,4 +262,32 @@ public class CinemaController {
         return list;
     }
 
+    public ArrayList<CinemaDTO> searchCinema(String text) {
+        ArrayList<CinemaDTO> list = new ArrayList<>();
+        String query = "SELECT * FROM `cinema` WHERE `name` LIKE ?";
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, "%" + text + "%");
+
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                CinemaDTO cinemaDTO = new CinemaDTO();
+                cinemaDTO.setId(resultSet.getInt("id"));
+                cinemaDTO.setName(resultSet.getString("name"));
+                cinemaDTO.setCountry(resultSet.getString("country"));
+                cinemaDTO.setAutonomous_district(resultSet.getString("autonomous_district"));
+                cinemaDTO.setDetailed_address(resultSet.getString("detailed_address"));
+                cinemaDTO.setPhone(resultSet.getString("phone"));
+
+                list.add(cinemaDTO);
+            }
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
 }
