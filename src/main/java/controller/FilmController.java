@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class FilmController {
     private Connection connection;
-    private final int PAGE_SIZE = 5;
+    private final int PAGE_SIZE = 8;
 
     public FilmController(ConnectionMaker connectionMaker) {
         connection = connectionMaker.makeConnection();

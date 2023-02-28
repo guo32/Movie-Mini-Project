@@ -3,7 +3,8 @@
 <%@ page import="dbConn.MySqlConnectionMaker" %>
 <%@ page import="controller.FilmController" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="model.FilmDTO" %><%--
+<%@ page import="model.FilmDTO" %>
+<%@ page import="controller.ReviewController" %><%--
   Created by IntelliJ IDEA.
   User: USER
   Date: 2023-02-13
@@ -12,6 +13,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>영화 목록</title>
@@ -72,7 +74,8 @@
         <%@include file="../header.jsp" %>
         <!-- search -->
         <div class="d-flex align-items-center mb-4 search-form">
-            <input type="search" id="film-search" name="film-search" class="form-control w-100" placeholder="영화 제목 검색" onkeypress="if(event.keyCode==13) {search()}"/>
+            <input type="search" id="film-search" name="film-search" class="form-control w-100" placeholder="영화 제목 검색"
+                   onkeypress="if(event.keyCode==13) {search()}"/>
             <button type="button" class="flex-shrink-0 dropdown btn" onclick="search()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search"
                      viewBox="0 0 16 16">
@@ -92,33 +95,38 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <c:forEach var="film" items="${filmList}">
-                        <div class="row mb-2">
-                            <div class="col mb-6">
-                                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-m d-250 position-relative">
-                                    <div class="col p-4 d-flex flex-column position-static">
-                                        <h3 class="mb-1">${film.title}</h3>
-                                        <p class="card-text mb-auto">${film.description}</p>
-                                        <a href="/film/printOne.jsp?id=${film.id}" class="stretched-link">상세보기</a>
-                                    </div>
-                                    <div class="col-auto d-none d-lg-block">
-                                        <svg class="bd-placeholder-img" width="150" height="200" role="img"
-                                             preserveAspectRatio="xMidYMid slice" focusable="false">
-                                            <c:choose>
-                                                <c:when test="${film.poster == null}">
-                                                    <rect width="100%" height="100%" fill="#0d0d0d"></rect>
-                                                    <text x="30%" y="50%" fill="#f2f2f2">No image</text>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <image href="../resource/img/${film.poster}" width="100%"/>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </svg>
-                                    </div>
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                        <c:forEach var="film" items="${filmList}">
+                            <div class="col">
+                                <div class="card shadow-sm">
+                                    <svg class="bd-placeholder-img card-img" width="100%" height="300"
+                                         xmlns="http://www.w3.org/2000/svg" role="img"
+                                         aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
+                                         focusable="false">
+                                        <c:choose>
+                                            <c:when test="${film.poster == null}">
+                                                <rect width="100%" height="100%" fill="#0d0d0d"></rect>
+                                                <text x="30%" y="50%" fill="#f2f2f2">No image</text>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <image href="../resource/img/${film.poster}" width="100%"/>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </svg>
+                                    <a href="/film/printOne.jsp?id=${film.id}" class="stretched-link"></a>
+                                </div>
+                                <div class="text-center my-1">
+                                    <%
+                                        ReviewController reviewController = new ReviewController(connectionMaker);
+                                        pageContext.setAttribute("reviewController", reviewController);
+                                    %>
+                                    <b>${film.title}</b>
+                                    <p class="fw-light text-secondary">★ <fmt:formatNumber value="${reviewController.calculateRatingAverageByFilmId(film.id)}"
+                                                                      pattern="0.0#"/></p>
                                 </div>
                             </div>
-                        </div>
-                    </c:forEach>
+                        </c:forEach>
+                    </div>
                     <div class="d-flex justify-content-center">
                         <nav aria-label="Page navigation">
                             <ul class="pagination">
