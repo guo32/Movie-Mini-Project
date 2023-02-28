@@ -13,6 +13,8 @@
 <html>
 <head>
     <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 </head>
 <body>
 <%
@@ -33,8 +35,12 @@
     userGradeRequestController.insert(userGradeRequestDTO);
 %>
 <script>
-    alert("정상적으로 신청되었습니다.");
-    location.href = "/user/mypage.jsp";
+    Swal.fire({
+        icon: "success",
+        text: "정상적으로 신청되었습니다.",
+    }).then(() => {
+        location.href = "/user/mypage.jsp";
+    });
 </script>
 </body>
 </html>

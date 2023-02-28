@@ -12,6 +12,8 @@
 <html>
 <head>
     <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 </head>
 <body>
 <%
@@ -35,8 +37,13 @@
     } else {
 %>
 <script>
-    alert("[유효하지 않은 아이디]\n회원가입에 실패하였습니다.")
-    history.go(-1);
+    Swal.fire({
+        icon: "warning",
+        title: "유효하지 않은 아이디",
+        text: "회원가입에 실패하였습니다.",
+    }).then(() => {
+        history.go(-1);
+    });
 </script>
 <%
     }

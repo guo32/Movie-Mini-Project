@@ -64,9 +64,20 @@
                                     </td>
                                     <td>
                                         <c:if test="${request.status == 'N'}">
-                                            <button type="button" class="badge bg-danger fw-light border border-0" onclick="if(confirm('취소하시겠습니까?')) {
-                                                location.href = '/user/delete_request_grade.jsp?id=' + ${request.id};
-                                            }">취소</button>
+                                            <script>
+                                                function checkDelete() {
+                                                    Swal.fire({
+                                                        icon: "warning",
+                                                        text: "취소하시겠습니까?",
+                                                        showCancelButton: true,
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            location.href = "/user/delete_request_grade.jsp?id=" + ${request.id};
+                                                        }
+                                                    });
+                                                }
+                                            </script>
+                                            <button type="button" class="badge bg-danger fw-light border border-0" onclick="checkDelete()">취소</button>
                                         </c:if>
                                     </td>
                                 </tr>

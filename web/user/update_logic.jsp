@@ -12,6 +12,8 @@
 <html>
 <head>
     <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 </head>
 <body>
 <%
@@ -33,8 +35,13 @@
     if (userDTO == null) {
 %>
 <script>
-    alert("[회원 정보 수정 실패]\n회원 정보 수정에 실패하였습니다.")
-    history.go(-1);
+    Swal.fire({
+        icon: "warning",
+        title: "회원 정보 수정 실패",
+        text: "회원 정보 수정에 실패하였습니다.",
+    }).then(() => {
+        history.go(-1);
+    });
 </script>
 <%
     } else {
@@ -49,8 +56,13 @@
         session.invalidate();
 %>
 <script>
-    alert("[회원 정보 수정 성공] 다시 로그인해주세요.");
-    location.href = "/user/login.jsp";
+    Swal.fire({
+        icon: "success",
+        title: "회원 정보 수정 성공",
+        text: "다시 로그인해주세요.",
+    }).then(() => {
+        location.href = "/user/login.jsp";
+    });
 </script>
 <%
     }
