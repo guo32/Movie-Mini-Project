@@ -25,6 +25,8 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="../resource/css/main.css"/>
     <script type="text/javascript" src="../resource/javascript/readImage.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -74,8 +76,9 @@
                 </c:forEach>
             }
 
-            function changeAutonomousDistrict(v) {
-                let value = v;
+            function changeAutonomousDistrict(autonomous_district) {
+                let country_value = $("#country").val();
+                let autonomous_district_value = autonomous_district;
                 let cinema_select = document.querySelector(".cinema-select");
 
                 cinema_select.options.length = 0;
@@ -86,7 +89,7 @@
                 cinema_select.append(option);
 
                 <c:forEach var="cinema" items="${cinemaList}">
-                    if("${cinema.autonomous_district}" == value) {
+                    if("${cinema.country}" == country_value && "${cinema.autonomous_district}" == autonomous_district_value) {
                         let option = document.createElement("option");
                         option.innerText = "${cinema.name}(${cinema.detailed_address})";
                         option.value = "${cinema.id}";
