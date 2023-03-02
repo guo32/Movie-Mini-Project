@@ -69,28 +69,30 @@
     ArrayList<TheaterDTO> theaterList = theaterController.selectByCinemaId(id);
 
     TheaterDTO theaterDTO = null;
-    for (int i = 0; i < theaterIds.length; i++) {
-        if (theaterIds[i].equals("")) {
-            if (theaterNames[i].equals("") || theaterCapacities[i].equals("")) {
-                continue;
-            } else {
-                theaterDTO = new TheaterDTO();
-                theaterDTO.setCinema_id(id);
-                theaterDTO.setName(theaterNames[i]);
-                theaterDTO.setCapacity(Integer.parseInt(theaterCapacities[i]));
+    if (theaterIds != null) {
+        for (int i = 0; i < theaterIds.length; i++) {
+            if (theaterIds[i].equals("")) {
+                if (theaterNames[i].equals("") || theaterCapacities[i].equals("")) {
+                    continue;
+                } else {
+                    theaterDTO = new TheaterDTO();
+                    theaterDTO.setCinema_id(id);
+                    theaterDTO.setName(theaterNames[i]);
+                    theaterDTO.setCapacity(Integer.parseInt(theaterCapacities[i]));
 
-                theaterController.insert(theaterDTO);
-            }
-        } else {
-            if (theaterNames[i].equals("") || theaterCapacities[i].equals("")) {
-                continue;
+                    theaterController.insert(theaterDTO);
+                }
             } else {
-                theaterDTO = theaterController.selectById(Integer.parseInt(theaterIds[i]));
-                theaterList.remove(theaterDTO);
-                theaterDTO.setName(theaterNames[i]);
-                theaterDTO.setCapacity(Integer.parseInt(theaterCapacities[i]));
+                if (theaterNames[i].equals("") || theaterCapacities[i].equals("")) {
+                    continue;
+                } else {
+                    theaterDTO = theaterController.selectById(Integer.parseInt(theaterIds[i]));
+                    theaterList.remove(theaterDTO);
+                    theaterDTO.setName(theaterNames[i]);
+                    theaterDTO.setCapacity(Integer.parseInt(theaterCapacities[i]));
 
-                theaterController.update(theaterDTO);
+                    theaterController.update(theaterDTO);
+                }
             }
         }
     }
