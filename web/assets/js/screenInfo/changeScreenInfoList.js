@@ -21,10 +21,12 @@ let printScreenInfoList = (list, date_list) => {
         result.append($(document.createElement("div")).text("상영 정보가 존재하지 않습니다."));
     } else {
         date_list.forEach(date => {
+            let week = ['일', '월', '화', '수', '목', '금', '토']
             let allOuterWrap = $(document.createElement("div")).attr("class", "col");
             let outerWrap = $(document.createElement("div")).attr("class", "card mb-4 rounded-3 shadow-sm");
             let cardHeader = $(document.createElement("div")).attr("class", "card-header py-3");
             cardHeader.append($(document.createElement("h6")).text(date).attr("class", "text-secondary"));
+            cardHeader.append($(document.createElement("h4")).text(week[new Date(date).getDay()]).attr("class", "my-0 fw-normal"));
             outerWrap.append(cardHeader);
 
             let cardBody = $(document.createElement("div")).attr("class", "card-body");
@@ -35,7 +37,7 @@ let printScreenInfoList = (list, date_list) => {
                     let trForThead = $(document.createElement("tr"));
                     let tdForThead = $(document.createElement("td"));
                     let film = $(document.createElement("span")).text(screenInfo.film);
-                    let cinema = $(document.createElement("span")).text(screenInfo.cinema).attr("class", "badge rounded-pill text-bg-success fw-lighter");
+                    let cinema = $(document.createElement("span")).text(screenInfo.cinema).attr("class", "badge rounded-pill text-bg-success fw-lighter mx-1");
                     let theater = $(document.createElement("span")).text(screenInfo.theater).attr("class", "badge rounded-pill text-bg-warning fw-lighter");
 
                     tdForThead.append(film).append(cinema).append(theater);

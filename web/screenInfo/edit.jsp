@@ -25,6 +25,8 @@
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/resource/css/main.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 </head>
 <body>
 <%
@@ -41,10 +43,28 @@
     pageContext.setAttribute("cinemaController", cinemaController);
     pageContext.setAttribute("theaterController", theaterController);
 %>
+<script>
+    let checkDelete = (id) => {
+        Swal.fire({
+            icon: "warning",
+            text: "정말로 삭제하시겠습니까?",
+            showCancelButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = '/screenInfo/delete.jsp?id=' + id;
+            }
+        });
+    }
+</script>
 <div class="container-fluid">
     <div class="container">
         <%@include file="../header.jsp" %>
         <c:choose>
+            <c:when test="${login == null}">
+                <%
+                    response.sendRedirect("/screenInfo/printList.jsp");
+                %>
+            </c:when>
             <c:when test="${login != null && login.grade != 3}">
                 <%
                     response.sendRedirect("/screenInfo/printList.jsp");
@@ -91,9 +111,7 @@
                                                  data-bs-target="#screenInfoUpdate${screenInfo.id}">수정
                                             </div>
                                             <div class="badge bg-danger fw-light"
-                                                 onclick="if(confirm('정말로 삭제하시겠습니까?')) {
-                                                         location.href = '/screenInfo/delete.jsp?id=' + ${screenInfo.id};
-                                                         }">삭제
+                                                 onclick="checkDelete(${screenInfo.id})">삭제
                                             </div>
                                         </td>
                                     </tr>
