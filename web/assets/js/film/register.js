@@ -14,7 +14,7 @@ function checkForm() {
         return false;
     }
     if (title.length > 30) {
-        $("#input-for-title").append($(document.createElement("p")).text("ⓘ 45자 이내로 입력해주세요.").attr("class", "form-text text-danger fw-light fs-6").attr("id", "info-for-title"));
+        $("#input-for-title").append($(document.createElement("p")).text("ⓘ 30자 이내로 입력해주세요.").attr("class", "form-text text-danger fw-light fs-6").attr("id", "info-for-title"));
         $("#info-for-title").fadeOut(1500);
         setTimeout(() => {
             $("#info-for-title").remove();
