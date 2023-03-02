@@ -30,40 +30,11 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="../resource/css/main.css"/>
     <script type="text/javascript" src="../resource/javascript/readImage.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="../assets/js/cinema/register.js"></script>
 </head>
 <body>
-<script>
-    let checkForm = function () {
-        let name = document.getElementById("name").value;
-        let country = document.getElementById("country").value;
-        let autonomous_district = document.getElementById("autonomous_district").value;
-        let detailed_address = document.getElementById("detailed_address").value;
-        let phone = document.getElementById("phone").value;
-
-        if (name == '' || name == null) {
-            alert("극장명은 비워둘 수 없습니다.");
-            return;
-        }
-        if (country == '' || country == null) {
-            alert("시도는 비워둘 수 없습니다.");
-            return;
-        }
-        if (autonomous_district == '' || autonomous_district == null) {
-            alert("자치구는 비워둘 수 없습니다.");
-            return;
-        }
-        if (detailed_address == '' || detailed_address == null) {
-            alert("상세 주소는 비워둘 수 없습니다.");
-            return;
-        }
-        if (phone == '' || phone == null) {
-            alert("전화번호는 비워둘 수 없습니다.");
-            return;
-        }
-
-        document.cinemaForm.submit();
-    }
-</script>
 <div class="container-fluid">
     <div class="container">
         <%@include file="../header.jsp" %>
@@ -74,7 +45,7 @@
                 response.sendRedirect("/cinema/printList.jsp");
             }
         %>
-        <form action="/cinema/register_logic.jsp" method="post" enctype="multipart/form-data" name="cinemaForm">
+        <form action="/cinema/register_logic.jsp" method="post" enctype="multipart/form-data" name="cinemaForm" id="register-form">
             <main class="container">
                 <div class="row g-5">
                     <!-- 극장 기본 정보 입력 -->
@@ -84,30 +55,48 @@
                                 극장 등록하기
                             </h2>
                             <hr>
-                            <h2 class="blog-post-title">
-                                <input type="text" name="name" id="name" placeholder="극장 이름" class="form-control"/>
+                            <h2 class="blog-post-title" id="input-for-name">
+                                <input type="text" name="name" id="name" placeholder="극장 이름" class="form-control" required/>
                             </h2>
                             <hr>
                             <div class="col-12">
                                 <table class="col-12">
-                                    <tr>
+                                    <tr id="tr-for-address">
                                         <td class="col-1">주소</td>
-                                        <td>
-                                            <input type="text" name="country" id="country" placeholder="시도"
-                                                   class="form-control"/>
+                                        <td id="input-for-country" class="col-2">
+                                            <select name="country" id="country" class="form-control">
+                                                <option selected value="">시도</option>
+                                                <option value="서울">서울</option>
+                                                <option value="부산">부산</option>
+                                                <option value="인천">인천</option>
+                                                <option value="대전">대전</option>
+                                                <option value="대구">대구</option>
+                                                <option value="광주">광주</option>
+                                                <option value="울산">울산</option>
+                                                <option value="경기">경기</option>
+                                                <option value="강원">강원</option>
+                                                <option value="충북">충북</option>
+                                                <option value="충남">충남</option>
+                                                <option value="전북">전북</option>
+                                                <option value="전남">전남</option>
+                                                <option value="경북">경북</option>
+                                                <option value="경남">경남</option>
+                                                <option value="제주">제주</option>
+                                                <option value="세종">세종</option>
+                                            </select>
                                         </td>
-                                        <td>
+                                        <td id="input-for-autonomous-district">
                                             <input type="text" name="autonomous_district" id="autonomous_district"
-                                                   placeholder="자치구" class="form-control"/>
+                                                   placeholder="자치구" class="form-control" required/>
                                         </td>
-                                        <td class="col-6">
+                                        <td class="col-6" id="input-for-detailed-address">
                                             <input type="text" name="detailed_address" id="detailed_address"
-                                                   placeholder="상세 주소" class="form-control"/>
+                                                   placeholder="상세 주소" class="form-control" required/>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="tr-for-phone">
                                         <td class="col-1">전화</td>
-                                        <td colspan="3">
+                                        <td colspan="3" id="input-for-phone">
                                             <input type="text" name="phone" id="phone" placeholder="-를 포함한 전화 번호"
                                                    class="form-control col-auto"/>
                                         </td>
@@ -160,7 +149,7 @@
                                 </table>
                             </div>
                             <div class="text-center mt-2">
-                                <div class="btn btn-outline-success" onclick="checkForm()">등록</div>
+                                <div class="btn btn-outline-success" onclick="submitForm()">등록</div>
                                 <div class="btn btn-outline-danger" onclick="location.href='/cinema/printList.jsp'">
                                     취소
                                 </div>

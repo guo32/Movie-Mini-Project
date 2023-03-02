@@ -41,15 +41,21 @@
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/resource/css/main.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 </head>
 <body>
 <script>
     function checkDelete() {
-        let result = confirm("극장 <${cinema.name}>을(를) 정말로 삭제하시겠습니까?");
-
-        if (result) {
-            location.href = "/cinema/delete.jsp?id=" + ${cinema.id};
-        }
+        Swal.fire({
+            icon: "warning",
+            text: "극장 <${cinema.name}>을(를) 정말로 삭제하시겠습니까?",
+            showCancelButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = "/cinema/delete.jsp?id=" + ${cinema.id};
+            }
+        });
     }
 </script>
 <div class="container-fluid">
