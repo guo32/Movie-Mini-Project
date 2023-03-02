@@ -80,7 +80,7 @@
                     </c:forEach>
                 </ul>
             </div>
-            <div class="rounded p-1" style="background-color: #023E73;">
+            <div class="rounded p-1" style="border: 2px solid #023E73;">
                 <ul class="nav col-12 col-md-auto mb-2 mb-md-0" id="cinema-list">
                     <c:forEach var="cinema" items="${cinemaController.selectByCountry('서울')}">
                         <li>

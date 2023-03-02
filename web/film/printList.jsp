@@ -99,7 +99,7 @@
                         <c:forEach var="film" items="${filmList}">
                             <div class="col">
                                 <div class="card shadow-sm">
-                                    <svg class="bd-placeholder-img card-img" width="100%" height="300"
+                                    <svg class="bd-placeholder-img card-img" width="100%" height="290"
                                          xmlns="http://www.w3.org/2000/svg" role="img"
                                          aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
                                          focusable="false">

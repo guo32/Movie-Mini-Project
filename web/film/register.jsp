@@ -1,18 +1,3 @@
-<%@ page import="model.UserDTO" %>
-<%@ page import="controller.FilmController" %>
-<%@ page import="dbConn.MySqlConnectionMaker" %>
-<%@ page import="dbConn.ConnectionMaker" %>
-<%@ page import="model.FilmDTO" %>
-<%@ page import="controller.ReviewController" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="model.ReviewDTO" %>
-<%@ page import="controller.UserController" %><%--
-  Created by IntelliJ IDEA.
-  User: USER
-  Date: 2023-02-14
-  Time: 오후 3:16
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -28,36 +13,12 @@
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="../resource/css/main.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script type="text/javascript" src="../resource/javascript/readImage.js"></script>
+    <script type="text/javascript" src="../assets/js/film/register.js"></script>
 </head>
 <body>
-<script>
-    function checkForm() {
-        let title = document.getElementById("title").value;
-        let director = document.getElementById("director").value;
-        let rating = document.getElementById("rating").value;
-        let description = document.getElementById("description").value;
-
-        if (title == '' || title == null) {
-            alert("제목은 비워둘 수 없습니다.");
-            return;
-        }
-        if (director == '' || director == null) {
-            alert("감독은 비워둘 수 없습니다.");
-            return;
-        }
-        if (rating == '' || rating == null) {
-            alert("등급을 선택해주세요.");
-            return;
-        }
-        if (description == '' || description == null) {
-            alert("줄거리는 비워둘 수 없습니다.");
-            return;
-        }
-
-        document.registerForm.submit();
-    }
-</script>
 <div class="container-fluid">
     <div class="container">
         <%@include file="../header.jsp" %>
@@ -68,7 +29,7 @@
                 response.sendRedirect("/film/printList.jsp");
             }
         %>
-        <form action="/film/register_logic.jsp" method="post" enctype="multipart/form-data" name="registerForm">
+        <form action="/film/register_logic.jsp" method="post" enctype="multipart/form-data" name="registerForm" id="register-form">
             <main class="container">
                 <div class="row g-5">
                     <!-- 영화 기본 정보 입력 -->
@@ -78,7 +39,7 @@
                                 영화 등록하기
                             </h2>
                             <hr>
-                            <h2 class="blog-post-title">
+                            <h2 class="blog-post-title" id="input-for-title">
                                 <input type="text" name="title" id="title" placeholder="영화 제목" class="form-control"/>
                             </h2>
                             <hr>
@@ -86,12 +47,12 @@
                                 <table class="col-12">
                                     <tr>
                                         <td class="col-1">감독</td>
-                                        <td><input type="text" name="director" id="director" placeholder="영화 감독"
+                                        <td id="input-for-director"><input type="text" name="director" id="director" placeholder="영화 감독"
                                                    class="form-control col-auto"></td>
                                     </tr>
                                     <tr>
                                         <td class="col-1">등급</td>
-                                        <td>
+                                        <td id="input-for-rating">
                                             <select name="rating" id="rating" class="form-control">
                                                 <option selected value="">영화 등급을 선택해주세요.</option>
                                                 <option value="전체 관람가">전체 관람가</option>
@@ -106,12 +67,12 @@
                             </div>
                             <hr>
                             <h4 class="blog-post-title">줄거리</h4>
-                            <div>
+                            <div id="input-for-description">
                                 <textarea name="description" id="description" rows="8" placeholder="영화의 줄거리를 입력해주세요."
                                           class="form-control"></textarea>
                             </div>
                             <div class="text-center mt-2">
-                                <button type="button" class="btn btn-outline-success" onclick="checkForm()">등록</button>
+                                <button type="button" class="btn btn-outline-success" onclick="submitForm()">등록</button>
                                 <div class="btn btn-outline-danger" onclick="location.href='/film/printList.jsp'">취소
                                 </div>
                             </div>
