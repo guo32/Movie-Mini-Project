@@ -32,17 +32,19 @@
     UserGradeRequestDTO userGradeRequestDTO = userGradeRequestController.selectById(id);
     UserDTO userDTO = userController.selectById(userGradeRequestDTO.getUser_id());
 
-    if (edit == 1) {
-        // 수락
-        userGradeRequestDTO.setStatus("Y");
-        userDTO.setGrade(userGradeRequestDTO.getRequest_grade());
-        userController.update(userDTO);
-    } else {
-        // 거절
-        userGradeRequestDTO.setStatus("R");
-    }
+    if (userDTO != null) {
+        if (edit == 1) {
+            // 수락
+            userGradeRequestDTO.setStatus("Y");
+            userDTO.setGrade(userGradeRequestDTO.getRequest_grade());
+            userController.updateGrade(userDTO);
+        } else {
+            // 거절
+            userGradeRequestDTO.setStatus("R");
+        }
 
-    userGradeRequestController.update(userGradeRequestDTO);
+        userGradeRequestController.update(userGradeRequestDTO);
+    }
 %>
 <script>
     alert("정상적으로 처리되었습니다.");

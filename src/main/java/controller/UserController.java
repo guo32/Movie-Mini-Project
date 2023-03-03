@@ -54,6 +54,21 @@ public class UserController {
         return true;
     }
 
+    public void updateGrade(UserDTO userDTO) {
+        String query = "UPDATE `user` SET `grade` = ? WHERE `id` = ?";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, userDTO.getGrade());
+            pstmt.setInt(2, userDTO.getId());
+
+            pstmt.executeUpdate();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean delete(int id) {
         String query = "DELETE  FROM `user` WHERE `id` = ?";
 

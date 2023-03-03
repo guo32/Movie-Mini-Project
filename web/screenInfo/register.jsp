@@ -27,6 +27,7 @@
     <script type="text/javascript" src="../resource/javascript/readImage.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="../assets/js/screenInfo/changeSelectOption.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -50,55 +51,7 @@
             pageContext.setAttribute("filmList", filmController.selectAll(1));
         %>
         <script>
-            function changeCountry(v) {
-                let value = v;
-                let autonomous_district = document.querySelector('.autonomous-district-select');
-                let test = "";
-
-                autonomous_district.options.length = 0;
-
-                let option = document.createElement("option");
-                option.innerText = "자치구 선택";
-                option.value = "-1";
-                autonomous_district.append(option);
-
-                <c:forEach var="cinema" items="${cinemaList}">
-                    if("${cinema.country}" == value) {
-                        if(test != "${cinema.autonomous_district}") {
-                            test = "${cinema.autonomous_district}";
-
-                            let option = document.createElement("option");
-                            option.innerText = "${cinema.autonomous_district}";
-                            option.value = "${cinema.autonomous_district}";
-                            autonomous_district.append(option);
-                        }
-                    }
-                </c:forEach>
-            }
-
-            function changeAutonomousDistrict(autonomous_district) {
-                let country_value = $("#country").val();
-                let autonomous_district_value = autonomous_district;
-                let cinema_select = document.querySelector(".cinema-select");
-
-                cinema_select.options.length = 0;
-
-                let option = document.createElement("option");
-                option.innerText = "영화관 선택";
-                option.value = "-1";
-                cinema_select.append(option);
-
-                <c:forEach var="cinema" items="${cinemaList}">
-                    if("${cinema.country}" == country_value && "${cinema.autonomous_district}" == autonomous_district_value) {
-                        let option = document.createElement("option");
-                        option.innerText = "${cinema.name}(${cinema.detailed_address})";
-                        option.value = "${cinema.id}";
-                        cinema_select.append(option);
-                    }
-                </c:forEach>
-            }
-
-            function changeCinema(v) {
+            /*function changeCinema(v) {
                 let value = v;
                 let theater_select = document.querySelector(".theater-select");
 
@@ -117,7 +70,7 @@
                         theater_select.append(option);
                     }
                 </c:forEach>
-            }
+            }*/
         </script>
         <form name="cinemaForm" action="/screenInfo/register_logic.jsp" method="post">
             <main class="container">

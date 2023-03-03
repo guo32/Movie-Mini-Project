@@ -4,11 +4,9 @@ import dbConn.ConnectionMaker;
 import model.CinemaDTO;
 import model.TheaterDTO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CinemaController {
     private Connection connection;
@@ -226,6 +224,52 @@ public class CinemaController {
                 list.add(resultSet.getString("country"));
             }
 
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    public HashMap<String, Integer> selectAutonomousDistrictByCountry(String country) {
+        HashMap<String, Integer> map = new HashMap<>();
+        String query = "SELECT `autonomous_district`, COUNT(`autonomous_district`) AS CNT FROM `cinema` WHERE `country` = ? GROUP BY `autonomous_district`";
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, country);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                map.put(resultSet.getString("autonomous_district"), resultSet.getInt("CNT"));
+            }
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return map;
+    }
+
+    public ArrayList<CinemaDTO> selectCinemaByCountryAndAutonomousDistrict(String country, String autonomousDistrict) {
+        ArrayList<CinemaDTO> list = new ArrayList<>();
+        String query = "SELECT `id`, `name` FROM `cinema` WHERE `country` = ? AND `autonomous_district` = ?";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, country);
+            pstmt.setString(2, autonomousDistrict);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                CinemaDTO cinemaDTO = new CinemaDTO();
+                cinemaDTO.setId(resultSet.getInt("id"));
+                cinemaDTO.setName(resultSet.getString("name"));
+
+                list.add(cinemaDTO);
+            }
             resultSet.close();
             pstmt.close();
         } catch (SQLException e) {
