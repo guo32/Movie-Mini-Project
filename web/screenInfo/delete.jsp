@@ -1,13 +1,7 @@
 <%@ page import="dbConn.ConnectionMaker" %>
 <%@ page import="dbConn.MySqlConnectionMaker" %>
 <%@ page import="controller.ScreenInformationController" %>
-<%@ page import="model.UserDTO" %><%--
-  Created by IntelliJ IDEA.
-  User: USER
-  Date: 2023-02-22
-  Time: 오후 1:26
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="model.UserDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

@@ -52,6 +52,7 @@ public class ScreenInfoListByCinemaServlet extends HttpServlet {
                     temp.addProperty("cinema", cinemaController.selectById(s.getCinema_id()).getName());
                     temp.addProperty("theater", theaterController.selectById(s.getTheater_id()).getName());
                     temp.addProperty("capacity", theaterController.selectById(s.getTheater_id()).getCapacity());
+                    temp.addProperty("filmId", s.getFilm_id());
                     temp.addProperty("film", filmController.selectById(s.getFilm_id()).getTitle());
                     String startTime = sdf.format(s.getStart_time());
                     String endTime = sdf.format(s.getEnd_time());
@@ -64,6 +65,7 @@ public class ScreenInfoListByCinemaServlet extends HttpServlet {
             JsonArray dateArray = new JsonArray();
             dateArray.add(date.toString()); dateArray.add(date.plusDays(1).toString()); dateArray.add(date.plusDays(2).toString());
             object.addProperty("status", "success");
+            object.addProperty("cinema", cinemaController.selectById(cinemaId).getName());
             object.addProperty("list", array.toString());
             object.addProperty("dateList", dateArray.toString());
         } catch (Exception e) {

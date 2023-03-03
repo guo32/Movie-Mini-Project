@@ -84,7 +84,7 @@
                 <ul class="nav col-12 col-md-auto mb-2 mb-md-0" id="cinema-list">
                     <c:forEach var="cinema" items="${cinemaController.selectByCountry('서울')}">
                         <li>
-                            <a class="nav-link p-1 link-dark bg-light m-1 rounded" style="font-size: 90%" onclick="changeScreenInfo(${cinema.id})">${cinema.name}</a>
+                            <a class="nav-link p-1 link-dark bg-light m-1 rounded" style="font-size: 90%" onclick="changeScreenInfo(${cinema.id})" id="cinema-${cinema.id}">${cinema.name}</a>
                         </li>
                     </c:forEach>
                 </ul>
@@ -110,14 +110,16 @@
                                         <tr>
                                             <td>
                                                 <span onclick="location.href='../film/printOne.jsp?id=${info.film_id}'">${filmController.selectById(info.film_id).title}</span>
-                                                <span class="badge rounded-pill text-bg-success fw-lighter">${cinemaController.selectById(info.cinema_id).name}</span>
-                                                <span class="badge rounded-pill text-bg-warning fw-lighter">${theaterController.selectById(info.theater_id).name}</span>
                                             </td>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td><fmt:formatDate value="${info.start_time}" pattern="HH:mm"/> - <fmt:formatDate value="${info.end_time}" pattern="HH:mm"/> ${theaterController.selectById(info.theater_id).capacity}석</td>
+                                            <td>
+                                                <span><fmt:formatDate value="${info.start_time}" pattern="HH:mm"/> - <fmt:formatDate value="${info.end_time}" pattern="HH:mm"/> ${theaterController.selectById(info.theater_id).capacity}석</span>
+                                                <span class="badge rounded-pill text-bg-success fw-lighter">${cinemaController.selectById(info.cinema_id).name}</span>
+                                                <span class="badge rounded-pill text-bg-warning fw-lighter">${theaterController.selectById(info.theater_id).name}</span>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>

@@ -87,10 +87,10 @@
                                         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-m d-250 position-relative">
                                             <div class="col p-4 d-flex flex-column position-static content-mini-box">
                                                 <h4 class="mb-1">${film.title}</h4>
-                                                <a href="/film/printOne.jsp?id=${film.id}" class="stretched-link">상세보기</a>
+                                                <a href="/film/printOne.jsp?id=${film.id}" class="stretched-link"></a>
                                             </div>
                                             <div class="col-auto d-none d-lg-block">
-                                                <svg class="bd-placeholder-img" width="100" height="120" role="img"
+                                                <svg class="bd-placeholder-img" width="80" height="100" role="img"
                                                      preserveAspectRatio="xMidYMid slice" focusable="false">
                                                     <c:choose>
                                                         <c:when test="${film.poster == null}">
