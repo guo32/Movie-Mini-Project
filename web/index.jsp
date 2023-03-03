@@ -17,7 +17,7 @@
 <html>
 <head>
     <title>영화 목록</title>
-    <link href="/resource/img/filmicongreen.svg" rel="shortcut icon" type="image/x-icon">
+    <link href="/resource/img/sunfishicon.svg" rel="shortcut icon" type="image/x-icon">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -124,10 +124,13 @@
                                             <div class="col mb-6">
                                                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-m d-250 position-relative">
                                                     <div class="col p-4 d-flex flex-column position-static content-mini-box">
-                                                        <p class="card-text mb-auto text-muted text-truncate"><b class="fs-5 mx-2 mt-1 text-dark">
-                                                                ${cinema.name}</b> ${cinema.country} ${cinema.autonomous_district} ${cinema.detailed_address} | ${cinema.phone}
+                                                        <p class="card-text mb-auto text-muted text-truncate"><b
+                                                                class="fs-5 mx-2 mt-1 text-dark">
+                                                                ${cinema.name}</b> ${cinema.country} ${cinema.autonomous_district} ${cinema.detailed_address}
+                                                            | ${cinema.phone}
                                                         </p>
-                                                        <a href="/cinema/printOne.jsp?id=${cinema.id}" class="stretched-link"></a>
+                                                        <a href="/cinema/printOne.jsp?id=${cinema.id}"
+                                                           class="stretched-link"></a>
                                                     </div>
                                                 </div>
                                             </div>
