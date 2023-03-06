@@ -1,12 +1,10 @@
-<%@ page import="model.UserDTO" %>
 <%@ page import="dbConn.ConnectionMaker" %>
 <%@ page import="dbConn.MySqlConnectionMaker" %>
-<%@ page import="controller.FilmController" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.FilmDTO" %>
 <%@ page import="model.CinemaDTO" %>
-<%@ page import="controller.CinemaController" %>
-<%@ page import="controller.ReviewController" %>
+<%@ page import="model.NoticeDTO" %>
+<%@ page import="controller.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -32,12 +30,17 @@
     ConnectionMaker connectionMaker = new MySqlConnectionMaker();
     FilmController filmController = new FilmController(connectionMaker);
     CinemaController cinemaController = new CinemaController(connectionMaker);
+    NoticeController noticeController = new NoticeController(connectionMaker);
+    NoticeCategoryController noticeCategoryController = new NoticeCategoryController(connectionMaker);
 
     ArrayList<FilmDTO> filmList = filmController.selectAll(1);
     ArrayList<CinemaDTO> cinemaList = cinemaController.selectAll(1);
+    ArrayList<NoticeDTO> noticeList = noticeController.selectAll(1);
 
     pageContext.setAttribute("cinemaList", cinemaList);
     pageContext.setAttribute("filmList", filmList);
+    pageContext.setAttribute("noticeList", noticeList);
+    pageContext.setAttribute("noticeCategoryController", noticeCategoryController);
 %>
 <div class="container-fluid">
     <div class="container">
@@ -125,21 +128,12 @@
                         </span>
                     </h5>
                     <table class="table">
-                        <tr>
-                            <td>test</td>
-                        </tr>
-                        <tr>
-                            <td>test</td>
-                        </tr>
-                        <tr>
-                            <td>test</td>
-                        </tr>
-                        <tr>
-                            <td>test</td>
-                        </tr>
-                        <tr>
-                            <td>test</td>
-                        </tr>
+                        <c:forEach var="notice" items="${noticeList}" begin="0" end="4">
+                            <tr>
+                                <td class="text-secondary">[${noticeCategoryController.selectNameById(notice.category_id)}]</td>
+                                <td>${notice.title}</td>
+                            </tr>
+                        </c:forEach>
                     </table>
                 </div>
             </div>

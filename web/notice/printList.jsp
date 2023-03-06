@@ -69,6 +69,7 @@
     UserController userController = new UserController(connectionMaker);
 
     pageContext.setAttribute("noticeList", noticeList);
+    pageContext.setAttribute("categoryList", categoryList);
     pageContext.setAttribute("noticeCategoryController", noticeCategoryController);
     pageContext.setAttribute("userController", userController);
     pageContext.setAttribute("currentPage", pageNo);
@@ -95,7 +96,19 @@
                 </button>
             </div>
             <!-- list -->
+            <c:if test="${login != null && login.grade == 3}">
+                <button class="btn btn-outline-success btn-sm mb-2" onclick="location.href='/notice/register.jsp'">공지사항 등록하기</button>
+            </c:if>
             <div>
+                <div>
+                    <ul class="nav me-auto">
+                        <li class="nav-item me-1 rounded-top p-2" style="background-color: #e2e3e5;">전체</li>
+                        <c:forEach var="category" items="${categoryList}">
+                            <li class="nav-item me-1 rounded-top p-2"
+                                style="background-color: #031059; color: #FFFFFF;">${category.name}</li>
+                        </c:forEach>
+                    </ul>
+                </div>
                 <c:choose>
                     <c:when test="${empty noticeList}">
                         <p>아직 등록된 글이 없습니다.</p>
@@ -118,7 +131,7 @@
                                     <td>${noticeCategoryController.selectNameById(notice.category_id)}</td>
                                     <td>${notice.title}</td>
                                     <td>${userController.selectById(notice.writer_id).nickname}</td>
-                                    <td><fmt:formatDate value="${notice.entry_date}" pattern="YY.MM.dd"/> </td>
+                                    <td><fmt:formatDate value="${notice.entry_date}" pattern="YY.MM.dd"/></td>
                                 </tr>
                             </c:forEach>
                             </tbody>

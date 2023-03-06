@@ -18,7 +18,7 @@ public class NoticeController {
     }
 
     public boolean insert(NoticeDTO noticeDTO) {
-        String query = "INSERT INTO `notice`(`writer_id`, `category_id`, `title`, `content`)";
+        String query = "INSERT INTO `notice`(`writer_id`, `category_id`, `title`, `content`) VALUES(?, ?, ?, ?)";
         try {
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setInt(1, noticeDTO.getWriter_id());

@@ -4,6 +4,7 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/web/film/printOne.jsp" value="file://$PROJECT_DIR$/web/film" />
+        <entry key="file://$PROJECT_DIR$/web/notice/printList.jsp" value="file://$PROJECT_DIR$/web/notice" />
         <entry key="file://$PROJECT_DIR$/web/screenInfo/register.jsp" value="file://$PROJECT_DIR$/web/screenInfo" />
       </map>
     </option>
