@@ -57,11 +57,11 @@ let checkForm = function () {
     return true;
 }
 
-let submitForm = (flag) => {
-    if(flag) {
-        return;
-    } else {
-        if (checkForm()) {
+let submitForm = () => {
+    if (checkForm()) {
+        if (checkDoubleSubmit()) {
+            return;
+        } else {
             $("#register-form").submit();
         }
     }

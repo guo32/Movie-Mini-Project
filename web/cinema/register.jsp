@@ -150,7 +150,7 @@
                                 </table>
                             </div>
                             <div class="text-center mt-2">
-                                <div class="btn btn-outline-success" onclick="submitForm(checkDoubleSubmit())">등록</div>
+                                <div class="btn btn-outline-success" onclick="submitForm()">등록</div>
                                 <div class="btn btn-outline-danger" onclick="location.href='/cinema/printList.jsp'">
                                     취소
                                 </div>

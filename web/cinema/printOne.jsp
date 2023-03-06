@@ -117,7 +117,7 @@
                                         <c:forEach var="screenInfo" items="${screenInfoList}">
                                             <tr>
                                                 <td class="col-3 text-center table-secondary">
-                                                        ${filmController.selectById(screenInfo.film_id).title}
+                                                    <a class="link-dark text-decoration-none" href="../film/printOne.jsp?id=${screenInfo.film_id}">${filmController.selectById(screenInfo.film_id).title}</a>
                                                 </td>
                                                 <td>&nbsp;&nbsp;
                                                     <fmt:formatDate value="${screenInfo.start_time}"

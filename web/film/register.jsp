@@ -73,7 +73,7 @@
                                           class="form-control"></textarea>
                             </div>
                             <div class="text-center mt-2">
-                                <button type="button" class="btn btn-outline-success" onclick="submitForm(checkDoubleSubmit())">등록</button>
+                                <button type="button" class="btn btn-outline-success" onclick="submitForm()">등록</button>
                                 <div class="btn btn-outline-danger" onclick="location.href='/film/printList.jsp'">취소
                                 </div>
                             </div>

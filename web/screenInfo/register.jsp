@@ -22,6 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="../assets/js/screenInfo/changeSelectOption.js"></script>
+    <script src="../assets/js/screenInfo/register.js"></script>
     <script src="../assets/js/checkDoubleSubmit.js"></script>
 </head>
 <body>
@@ -43,7 +44,7 @@
             pageContext.setAttribute("countryList", cinemaController.selectCountry());
             pageContext.setAttribute("filmList", filmController.selectAll(1));
         %>
-        <form name="cinemaForm" action="/screenInfo/register_logic.jsp" method="post">
+        <form id="register-form" name="cinemaForm" action="/screenInfo/register_logic.jsp" method="post">
             <main class="container">
                 <div class="row g-5">
                     <!-- 극장 기본 정보 입력 -->
@@ -55,11 +56,11 @@
                             <hr>
                             <div class="col-12">
                                 <table class="col-12">
-                                    <tr>
+                                    <tr id="tr-for-cinema">
                                         <td class="col-2">극장</td>
                                         <td>
                                             <select id="country" name="country" class="form-control country-select" onchange="changeCountry(this.value)">
-                                                <option value="null">시도 선택</option>
+                                                <option value="-1">시도 선택</option>
                                                 <c:forEach var="country" items="${countryList}">
                                                     <option value="${country}">${country}</option>
                                                 </c:forEach>
@@ -76,7 +77,7 @@
                                             </select>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="tr-for-theater">
                                         <td class="col-2">상영관</td>
                                         <td colspan="3">
                                             <select id="theater_id" name="theater_id" class="form-control theater-select">
@@ -84,7 +85,7 @@
                                             </select>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="tr-for-film">
                                         <td class="col-2">영화</td>
                                         <td colspan="3">
                                             <select id="film_id" name="film_id" class="form-control">
@@ -95,14 +96,14 @@
                                             </select>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="tr-for-start-time">
                                         <td class="col-2">시작하는 시간</td>
                                         <td colspan="3">
                                             <input type="datetime-local" name="start_time" id="start_time"
                                                    class="form-control col-auto"/>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr id="tr-for-end-time">
                                         <td class="col-2">끝나는 시간</td>
                                         <td colspan="3">
                                             <input type="datetime-local" name="end_time" id="end_time"
@@ -112,7 +113,7 @@
                                 </table>
                             </div>
                             <div class="text-center mt-2">
-                                <button type="submit" class="btn btn-outline-success">등록</button>
+                                <button type="button" class="btn btn-outline-success" onclick="submitForm()">등록</button>
                                 <div class="btn btn-outline-danger" onclick="location.href='/screenInfo/printList.jsp'">
                                     취소
                                 </div>
