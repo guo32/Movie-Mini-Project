@@ -3,10 +3,7 @@ package controller;
 import dbConn.ConnectionMaker;
 import model.ScreenInformationDTO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -149,6 +146,38 @@ public class ScreenInformationController {
             e.printStackTrace();
         }
 
+        return list;
+    }
+
+    public ArrayList<ScreenInformationDTO> selectByCinemaAndDate(int cinema_id, String date) {
+        ArrayList<ScreenInformationDTO> list = new ArrayList<>();
+        String query = "SELECT * FROM `screenInformation` WHERE `cinema_id` = ? AND YEAR(`start_time`) = ? AND MONTH(`start_time`) = ? AND DAY(`start_time`) = ? ORDER BY `cinema_id`";
+        String[] dateArray = date.split("-");
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, cinema_id);
+            pstmt.setInt(2, Integer.parseInt(dateArray[0]));
+            pstmt.setInt(3, Integer.parseInt(dateArray[1]));
+            pstmt.setInt(4, Integer.parseInt(dateArray[2]));
+
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                ScreenInformationDTO screenInformationDTO = new ScreenInformationDTO();
+                screenInformationDTO.setId(resultSet.getInt("id"));
+                screenInformationDTO.setCinema_id(resultSet.getInt("cinema_id"));
+                screenInformationDTO.setTheater_id(resultSet.getInt("theater_id"));
+                screenInformationDTO.setFilm_id(resultSet.getInt("film_id"));
+                screenInformationDTO.setStart_time(resultSet.getTimestamp("start_time"));
+                screenInformationDTO.setEnd_time(resultSet.getTimestamp("end_time"));
+
+                list.add(screenInformationDTO);
+            }
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return list;
     }
 }

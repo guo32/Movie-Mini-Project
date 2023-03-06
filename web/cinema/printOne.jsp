@@ -5,13 +5,9 @@
 <%@ page import="controller.TheaterController" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="controller.ScreenInformationController" %>
-<%@ page import="model.*" %><%--
-  Created by IntelliJ IDEA.
-  User: USER
-  Date: 2023-02-14
-  Time: 오후 3:16
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="model.*" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -96,11 +92,20 @@
 
                             FilmController filmController = new FilmController(connectionMaker);
 
-                            pageContext.setAttribute("screenInfoList", screenInformationList);
+                            Date date = new Date();
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
+                            ArrayList<ScreenInformationDTO> screenInformationListForToday = screenInformationController.selectByCinemaAndDate(id, sdf.format(date));
+
+                            // pageContext.setAttribute("screenInfoList", screenInformationList);
+                            pageContext.setAttribute("screenInfoList", screenInformationListForToday);
                             pageContext.setAttribute("theaterList", theaterList);
                             pageContext.setAttribute("theaterController", theaterController);
                             pageContext.setAttribute("filmController", filmController);
+                            pageContext.setAttribute("now", date);
                         %>
+                        <!-- today -->
+                        <p class="text-secondary"><fmt:formatDate value="${now}" pattern="YYYY-MM-dd"/></p>
+
                         <div class="col-12">
                             <c:choose>
                                 <c:when test="${empty screenInfoList}">
@@ -111,16 +116,17 @@
                                         <tbody>
                                         <c:forEach var="screenInfo" items="${screenInfoList}">
                                             <tr>
-                                                <td class="col-4 text-center table-light">
+                                                <td class="col-3 text-center table-secondary">
                                                         ${filmController.selectById(screenInfo.film_id).title}
-                                                    <span class="badge bg-success fw-light">${theaterController.selectById(screenInfo.theater_id).name}</span>
                                                 </td>
                                                 <td>&nbsp;&nbsp;
                                                     <fmt:formatDate value="${screenInfo.start_time}"
-                                                                    pattern="yy/MM/dd HH:mm"/>
+                                                                    pattern="HH:mm"/>
                                                     -
                                                     <fmt:formatDate value="${screenInfo.end_time}"
-                                                                    pattern="yy/MM/dd HH:mm"/>
+                                                                    pattern="HH:mm"/>
+                                                    <span class="mx-2 badge bg-success fw-light">${theaterController.selectById(screenInfo.theater_id).name}</span>
+                                                    <span class="badge bg-secondary fw-light">${theaterController.selectById(screenInfo.theater_id).capacity}석</span>
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -141,7 +147,7 @@
                                         <tbody>
                                         <c:forEach var="theater" items="${theaterList}">
                                             <tr>
-                                                <td class="col-3 text-center table-light">${theater.name}</td>
+                                                <td class="col-3 text-center table-secondary">${theater.name}</td>
                                                 <td>&nbsp;&nbsp;${theater.capacity}석</td>
                                             </tr>
                                         </c:forEach>
