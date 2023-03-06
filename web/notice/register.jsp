@@ -24,6 +24,7 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="../assets/js_library/build/ckeditor.js"></script>
     <script src="../assets/js/notice/register.js"></script>
+    <script src="../assets/js/checkDoubleSubmit.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -54,7 +55,7 @@
             </div>
             <textarea id="editor" name="content"></textarea>
             <div class="text-center mt-2">
-                <button type="button" class="btn btn-outline-success" onclick="submitForm()">등록</button>
+                <button type="button" class="btn btn-outline-success" onclick="submitForm(checkDoubleSubmit())">등록</button>
                 <div class="btn btn-outline-danger" onclick="location.href='/notice/printList.jsp'">취소
                 </div>
             </div>

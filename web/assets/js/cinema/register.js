@@ -57,10 +57,13 @@ let checkForm = function () {
     return true;
 }
 
-let submitForm = () => {
-    let result = checkForm();
-    if (result == true) {
-        $("#register-form").submit();
+let submitForm = (flag) => {
+    if(flag) {
+        return;
+    } else {
+        if (checkForm()) {
+            $("#register-form").submit();
+        }
     }
 }
 

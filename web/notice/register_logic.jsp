@@ -14,6 +14,7 @@
 <head>
     <title>Title</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../assets/js/checkDoubleSubmit.js"></script>
 </head>
 <body>
 <%
@@ -34,7 +35,13 @@
     noticeDTO.setTitle(request.getParameter("title"));
     noticeDTO.setContent(request.getParameter("content"));
 
-    if (noticeController.insert(noticeDTO)) {
+    boolean result = noticeController.insert(noticeDTO);
+%>
+<script>
+    resetFlag();
+</script>
+<%
+    if (result) {
         response.sendRedirect("/notice/printList.jsp");
     } else {
 %>

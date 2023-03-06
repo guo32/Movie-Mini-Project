@@ -32,8 +32,12 @@ let checkForm = () => {
     return true;
 }
 
-let submitForm = () => {
-    if (checkForm()) {
-        $("#register-form").submit();
+let submitForm = (flag) => {
+    if(flag) {
+        return;
+    } else {
+        if (checkForm()) {
+            $("#register-form").submit();
+        }
     }
 }

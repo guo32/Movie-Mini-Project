@@ -18,6 +18,7 @@
 <html>
 <head>
     <title>Title</title>
+    <script src="../assets/js/checkDoubleSubmit.js"></script>
 </head>
 <body>
 <%
@@ -62,7 +63,7 @@
 
     TheaterController theaterController = new TheaterController(connectionMaker);
     for (int i = 0; i < theaterNames.length; i++) {
-        if(theaterNames[i].equals("") || theaterCapacities[i].equals("")) {
+        if (theaterNames[i].equals("") || theaterCapacities[i].equals("")) {
             continue;
         } else {
             TheaterDTO theaterDTO = new TheaterDTO();
@@ -72,6 +73,11 @@
             theaterController.insert(theaterDTO);
         }
     }
+%>
+<script>
+    resetFlag();
+</script>
+<%
 
     response.sendRedirect("../cinema/printOne.jsp?id=" + cinemaId);
 %>

@@ -16,6 +16,7 @@
 <html>
 <head>
     <title>Title</title>
+    <script src="../assets/js/checkDoubleSubmit.js"></script>
 </head>
 <body>
 <%
@@ -52,7 +53,11 @@
     filmDTO.setPoster(filename);
 
     filmController.insert(filmDTO);
-
+%>
+<script>
+    resetFlag();
+</script>
+<%
     response.sendRedirect("/film/printList.jsp");
 %>
 </body>

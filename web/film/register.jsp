@@ -17,6 +17,7 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script type="text/javascript" src="../resource/javascript/readImage.js"></script>
     <script type="text/javascript" src="../assets/js/film/register.js"></script>
+    <script src="../assets/js/checkDoubleSubmit.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -72,7 +73,7 @@
                                           class="form-control"></textarea>
                             </div>
                             <div class="text-center mt-2">
-                                <button type="button" class="btn btn-outline-success" onclick="submitForm()">등록</button>
+                                <button type="button" class="btn btn-outline-success" onclick="submitForm(checkDoubleSubmit())">등록</button>
                                 <div class="btn btn-outline-danger" onclick="location.href='/film/printList.jsp'">취소
                                 </div>
                             </div>

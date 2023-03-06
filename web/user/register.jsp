@@ -21,6 +21,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="../assets/js/user/register.js"></script>
+    <script src="../assets/js/checkDoubleSubmit.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -92,7 +93,7 @@
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-10 text-center">
-                                <div class="btn btn-outline-primary col-5" onclick="submitForm()">회원가입</div>
+                                <div class="btn btn-outline-primary col-5" onclick="submitForm(checkDoubleSubmit())">회원가입</div>
                                 <div class="col-5 btn btn-outline-danger" onclick="location.href='../index.jsp'">취소
                                 </div>
                             </div>

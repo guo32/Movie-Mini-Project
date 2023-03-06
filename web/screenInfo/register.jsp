@@ -22,6 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="../assets/js/screenInfo/changeSelectOption.js"></script>
+    <script src="../assets/js/checkDoubleSubmit.js"></script>
 </head>
 <body>
 <div class="container-fluid">
