@@ -35,4 +35,26 @@ public class NoticeCategoryController {
 
         return list;
     }
+
+    public String selectNameById(int id) {
+        String name = null;
+        String query = "SELECT `name` FROM `notice_category` WHERE `id` = ?";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, id);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                name = resultSet.getString("name");
+            }
+
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return name;
+    }
 }

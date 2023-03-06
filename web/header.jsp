@@ -66,7 +66,7 @@
                 <li><a href="/screenInfo/printList.jsp" class="nav-link px-3 text-dark fw-bold">상영 정보</a></li>
                 <c:if test="${login.grade == 3}">
                     <li class="nav-item mx-1">
-                        <a href="/user/printList.jsp" class="nav-link px-2 text-dark">회원</a>
+                        <a href="/user/printList.jsp" class="nav-link px-2 text-dark fw-bold">회원</a>
                     </li>
                 </c:if>
             </ul>

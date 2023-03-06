@@ -16,6 +16,8 @@
           <element id="library" level="project" name="mysql-connector-java-8.0.29" />
           <element id="library" level="project" name="Maven: servlets.com:cos:05Nov2002" />
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.10.1" />
+          <element id="file-copy" path="$PROJECT_DIR$/../../../../Program Files/Apache Software Foundation/Tomcat 9.0/lib/servlet-api.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/../../../../Program Files/Apache Software Foundation/Tomcat 9.0/lib/jsp-api.jar" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="Movie-Mini-Project/web/Web" />
