@@ -1,4 +1,3 @@
-<%@ page import="model.UserDTO" %>
 <%@ page import="controller.FilmController" %>
 <%@ page import="dbConn.MySqlConnectionMaker" %>
 <%@ page import="dbConn.ConnectionMaker" %>
@@ -6,13 +5,7 @@
 <%@ page import="controller.ReviewController" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.ReviewDTO" %>
-<%@ page import="controller.UserController" %><%--
-  Created by IntelliJ IDEA.
-  User: USER
-  Date: 2023-02-14
-  Time: 오후 3:16
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="controller.UserController" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -332,8 +325,7 @@
                                  style="background-color: #FFFFFF">
                                 <c:choose>
                                     <c:when test="${film.poster == null}">
-                                        <rect width="100%" height="100%" fill="#0d0d0d"></rect>
-                                        <text x="40%" y="50%" fill="#f2f2f2">No image</text>
+                                        <image href="../resource/img/no_image.JPG" width="100%" height="100%"/>
                                     </c:when>
                                     <c:otherwise>
                                         <image href="../resource/img/${film.poster}" width="100%" height="100%"/>

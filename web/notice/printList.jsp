@@ -81,7 +81,7 @@
     <div class="container">
         <%@include file="../header.jsp" %>
         <div>
-            <h5>공지사항</h5>
+            <h4>공지사항</h4>
             <!-- search -->
             <div class="d-flex align-items-center mb-4 search-form">
                 <input type="search" id="cinema-search" name="cinema-search" class="form-control w-100"
@@ -126,7 +126,7 @@
                             </thead>
                             <tbody>
                             <c:forEach var="notice" items="${noticeList}">
-                                <tr>
+                                <tr onclick="location.href='/notice/printOne.jsp?id=${notice.id}'">
                                     <td>${notice.id}</td>
                                     <td>${noticeCategoryController.selectNameById(notice.category_id)}</td>
                                     <td>${notice.title}</td>
