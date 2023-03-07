@@ -125,6 +125,32 @@ public class NoticeController {
         return list;
     }
 
+    public ArrayList<NoticeDTO> selectByCategoryId(int category_id) {
+        ArrayList<NoticeDTO> list = new ArrayList<>();
+        String query = "SELECT * FROM `notice` WHERE `category_id` = ? ORDER BY `id` DESC";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, category_id);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                NoticeDTO noticeDTO = new NoticeDTO();
+                noticeDTO.setId(resultSet.getInt("id"));
+                noticeDTO.setWriter_id(resultSet.getInt("writer_id"));
+                noticeDTO.setCategory_id(resultSet.getInt("category_id"));
+                noticeDTO.setTitle(resultSet.getString("title"));
+                noticeDTO.setEntry_date(resultSet.getTimestamp("entry_date"));
+
+                list.add(noticeDTO);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
     public int countTotalPage() {
         int totalPage = 0;
         String query = "SELECT COUNT(*) FROM `notice`";

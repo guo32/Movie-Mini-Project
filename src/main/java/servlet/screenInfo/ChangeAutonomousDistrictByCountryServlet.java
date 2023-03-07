@@ -37,7 +37,7 @@ public class ChangeAutonomousDistrictByCountryServlet extends HttpServlet {
                 temp.addProperty("count", e.getValue());
                 array.add(temp);
             }
-            System.out.println(array);
+
             object.addProperty("status", "success");
             object.addProperty("list", array.toString());
         } catch (Exception e) {

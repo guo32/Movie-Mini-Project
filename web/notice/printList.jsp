@@ -29,6 +29,9 @@
     <link rel="stylesheet" type="text/css" href="/resource/css/main.css"/>
     <!-- Swiper -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="../assets/js/notice/changeNoticeList.js"></script>
 </head>
 <body>
 <%
@@ -98,81 +101,88 @@
             </div>
             <!-- list -->
             <c:if test="${login != null && login.grade == 3}">
-                <button class="btn btn-outline-success btn-sm mb-2" onclick="location.href='/notice/register.jsp'">공지사항 등록하기</button>
+                <button class="btn btn-outline-success btn-sm mb-2" onclick="location.href='/notice/register.jsp'">공지사항
+                    등록하기
+                </button>
             </c:if>
             <div>
                 <div>
-                    <ul class="nav me-auto">
-                        <li class="nav-item me-1 rounded-top p-2" style="background-color: #e2e3e5;">전체</li>
+                    <ul class="nav me-auto" id="ul-for-items">
+                        <li id="item-0" class="nav-item me-1 rounded-top p-2" style="background-color: #e2e3e5;"
+                            onclick="location.href = '/notice/printList.jsp'">전체
+                        </li>
                         <c:forEach var="category" items="${categoryList}">
-                            <li class="nav-item me-1 rounded-top p-2"
-                                style="background-color: #031059; color: #FFFFFF;">${category.name}</li>
+                            <li id="item-${category.id}" class="nav-item me-1 rounded-top p-2"
+                                style="background-color: #031059; color: #FFFFFF;"
+                                onclick="changeList(${category.id})">${category.name}</li>
                         </c:forEach>
                     </ul>
                 </div>
-                <c:choose>
-                    <c:when test="${empty noticeList}">
-                        <p>아직 등록된 글이 없습니다.</p>
-                    </c:when>
-                    <c:otherwise>
-                        <table class="table">
-                            <thead class="table-secondary">
-                            <tr>
-                                <th>번호</th>
-                                <th>카테고리</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>작성일</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach var="notice" items="${noticeList}">
-                                <tr onclick="location.href='/notice/printOne.jsp?id=${notice.id}'">
-                                    <td>${notice.id}</td>
-                                    <td>${noticeCategoryController.selectNameById(notice.category_id)}</td>
-                                    <td>${notice.title}</td>
-                                    <td>${userController.selectById(notice.writer_id).nickname}</td>
-                                    <td><fmt:formatDate value="${notice.entry_date}" pattern="YY.MM.dd"/></td>
+                <div id="div-for-list">
+                    <c:choose>
+                        <c:when test="${empty noticeList}">
+                            <p class="mt-2">아직 등록된 글이 없습니다.</p>
+                        </c:when>
+                        <c:otherwise>
+                            <table class="table" id="table-for-list">
+                                <thead class="table-secondary" id="thead-for-list">
+                                <tr>
+                                    <th>번호</th>
+                                    <th>카테고리</th>
+                                    <th>제목</th>
+                                    <th>작성자</th>
+                                    <th>작성일</th>
                                 </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                        <div class="d-flex justify-content-center">
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a href="/cinema/printList.jsp?pageNo=${1}" class="page-link">
-                                            <span>&lt;</span>
-                                        </a>
-                                    </li>
-                                    <c:forEach begin="${startPage}" end="${endPage}" var="i">
-                                        <c:choose>
-                                            <c:when test="${currentPage eq i}">
-                                                <li class="page-item active">
-                                                    <a href="/cinema/printList.jsp?pageNo=${i}" class="page-link">
-                                                        <span>${i}</span>
-                                                    </a>
-                                                </li>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <li class="page-item">
-                                                    <a href="/cinema/printList.jsp?pageNo=${i}" class="page-link">
-                                                        <span>${i}</span>
-                                                    </a>
-                                                </li>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-                                    <li class="page-item">
-                                        <a href="/cinema/printList.jsp?pageNo=${totalPage}" class="page-link">
-                                            <span>&gt;</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </c:otherwise>
-                </c:choose>
+                                </thead>
+                                <tbody id="tbody-for-list">
+                                <c:forEach var="notice" items="${noticeList}">
+                                    <tr onclick="location.href='/notice/printOne.jsp?id=${notice.id}'">
+                                        <td>${notice.id}</td>
+                                        <td>${noticeCategoryController.selectNameById(notice.category_id)}</td>
+                                        <td>${notice.title}</td>
+                                        <td>${userController.selectById(notice.writer_id).nickname}</td>
+                                        <td><fmt:formatDate value="${notice.entry_date}" pattern="YY.MM.dd"/></td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-center">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a href="/cinema/printList.jsp?pageNo=${1}" class="page-link">
+                                                <span>&lt;</span>
+                                            </a>
+                                        </li>
+                                        <c:forEach begin="${startPage}" end="${endPage}" var="i">
+                                            <c:choose>
+                                                <c:when test="${currentPage eq i}">
+                                                    <li class="page-item active">
+                                                        <a href="/cinema/printList.jsp?pageNo=${i}" class="page-link">
+                                                            <span>${i}</span>
+                                                        </a>
+                                                    </li>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <li class="page-item">
+                                                        <a href="/cinema/printList.jsp?pageNo=${i}" class="page-link">
+                                                            <span>${i}</span>
+                                                        </a>
+                                                    </li>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                        <li class="page-item">
+                                            <a href="/cinema/printList.jsp?pageNo=${totalPage}" class="page-link">
+                                                <span>&gt;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
             </div>
         </div>
         <%@include file="../footer.jsp" %>
