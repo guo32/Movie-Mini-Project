@@ -121,7 +121,24 @@
                                         ReviewController reviewController = new ReviewController(connectionMaker);
                                         pageContext.setAttribute("reviewController", reviewController);
                                     %>
-                                    <b>${film.title}</b>
+                                    <c:choose>
+                                        <c:when test="${film.rating=='전체 관람가'}">
+                                            <span class="badge bg-success py-1 fw-light">전체</span>
+                                        </c:when>
+                                        <c:when test="${film.rating=='12세 이상 관람가'}">
+                                            <span class="badge bg-info py-1 fw-light">12</span>
+                                        </c:when>
+                                        <c:when test="${film.rating=='15세 이상 관람가'}">
+                                            <span class="badge bg-warning py-1 fw-light">15</span>
+                                        </c:when>
+                                        <c:when test="${film.rating=='청소년 관람불가'}">
+                                            <span class="badge bg-danger py-1 fw-light">청불</span>
+                                        </c:when>
+                                        <c:when test="${film.rating=='제한 관람가'}">
+                                            <span class="badge bg-dark py-1 fw-light">제한</span>
+                                        </c:when>
+                                    </c:choose>
+                                    <span class="mx-1 mt-1"><b>${film.title}</b></span>
                                     <p class="fw-light text-secondary">★ <fmt:formatNumber value="${reviewController.calculateRatingAverageByFilmId(film.id)}"
                                                                       pattern="0.0#"/></p>
                                 </div>
