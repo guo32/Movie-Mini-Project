@@ -38,29 +38,14 @@
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <%--<span style="color: #023E73; margin-right: 10px">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                      <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                      <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                    </svg>
-                </span>--%>
                 <svg class="bi me-2" width="55" height="50" role="img" aria-label="Bootstrap">
                     <image href="/resource/img/sunfishiconblue.svg" height="100%"/>
                 </svg>
-                <span style="color: #023E73">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
-                      <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
-                    </svg>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
-                      <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
-                    </svg>
-                </span>
+                <span class="fw-bold" style="color: #031059">movie<br>management</span>
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 mx-4">
-                <li><a href="/" class="nav-link px-3 text-secondary fw-bold">Home</a></li>
+                <%--<li><a href="/" class="nav-link px-3 text-secondary fw-bold">Home</a></li>--%>
                 <li><a href="/film/printList.jsp" class="nav-link px-3 text-dark fw-bold">영화</a></li>
                 <li><a href="/cinema/printList.jsp" class="nav-link px-3 text-dark fw-bold">극장</a></li>
                 <li><a href="/screenInfo/printList.jsp" class="nav-link px-3 text-dark fw-bold">상영 정보</a></li>

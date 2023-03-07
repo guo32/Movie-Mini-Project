@@ -27,7 +27,7 @@
         response.sendRedirect("/user/login.jsp");
     }
 
-    String newPassword = userController.encrypt(request.getParameter("newPassword"));
+    String newPassword = userController.encrypt(request.getParameter("newPassword").trim());
     String oldPassword = userController.encrypt(request.getParameter("oldPassword"));
     String nickname = request.getParameter("nickname");
 

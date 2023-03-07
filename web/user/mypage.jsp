@@ -40,7 +40,7 @@
                     pageContext.setAttribute("validate", userGradeRequestController.validateRequest(login.getId()));
                 %>
                 <script>
-                    function checkDelete() {
+                    function checkDeleteUser() {
                         if(${login.username == 'admin'}) {
                             Swal.fire({
                                 icon: 'error',
@@ -126,7 +126,7 @@
                                     <div class="btn btn-outline-success btn-sm mb-2" onclick="location.href='/user/update.jsp'">회원 정보 수정</div>
                                 </li>
                                 <li>
-                                    <div class="btn btn-outline-danger btn-sm mb-2" onclick="checkDelete()">회원 탈퇴</div>
+                                    <div class="btn btn-outline-danger btn-sm mb-2" onclick="checkDeleteUser()">회원 탈퇴</div>
                                 </li>
                             </ul>
                         </div>

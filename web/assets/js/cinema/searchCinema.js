@@ -34,9 +34,9 @@ let printList = (list) => {
     } else {
         result.empty();
         list.forEach(cinema => {
-            let allOuterWrapDiv = $(document.createElement("div")).attr("class", "row mb-2");
+            let allOuterWrapDiv = $(document.createElement("div")).attr("class", "row");
             let outerWrapDiv = $(document.createElement("div")).attr("class", "col mb-6");
-            let wrapDiv = $(document.createElement("div")).attr("class", "row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-m d-250 position-relative");
+            let wrapDiv = $(document.createElement("div")).attr("class", "row g-0 border rounded overflow-hidden flex-md-row mb-3 shadow-sm h-m d-250 position-relative");
             let contentDiv = $(document.createElement("div")).attr("class", "col p-3 d-flex flex-column position-static");
             let innerDiv = $(document.createElement("div")).attr("class", "row col-12");
             let b = $(document.createElement("b")).attr("class", "col-auto fs-5 mx-2 mt-1 text-dark").text(cinema.name);

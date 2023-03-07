@@ -3,7 +3,7 @@ let checkForm = () => {
     let oldPassword = $("#oldPassword").val();
     let nickname = $("#nickname").val();
 
-    if (newPassword.trim() != '') {
+    if (newPassword.trim() != '' || newPassword.trim() != null) {
         if (!(newPassword.includes("!") || newPassword.includes("@")) || newPassword.length < 6 || newPassword > 12) {
             $("#div-for-new-password").append($(document.createElement("p")).text("ⓘ 6자 이상 12자 이하의 특수문자(!, @)가 포함된 문장이어야 합니다.").attr("class", "text-danger fw-light").attr("style", "font-size: 85%").attr("id", "info-for-new-password"));
             $("#info-for-new-password").fadeOut(1500);

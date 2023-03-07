@@ -40,22 +40,28 @@
                 </ul>
             </div>
         </nav>
-        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-            <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none"
-               href="/film/printList.jsp">
-                Movie<br/>Management
-            </a>
-            <ul class="nav nav-pills">
-                <li class="nav-item mx-1">
-                    <a href="/film/printList.jsp" class="nav-link link-dark">영화</a>
-                </li>
-                <li class="nav-item mx-1">
-                    <a href="/cinema/printList.jsp" class="nav-link link-dark">극장</a>
-                </li>
-                <li class="nav-item mx-1">
-                    <a href="/screenInfo/printList.jsp" class="nav-link link-dark">상영 정보</a>
-                </li>
-            </ul>
+        <header class="p-3 text-bg-r-light border-bottom border-secondary mb-3">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                        <svg class="bi me-2" width="55" height="50" role="img" aria-label="Bootstrap">
+                            <image href="/resource/img/sunfishiconblue.svg" height="100%"/>
+                        </svg>
+                        <span class="fw-bold" style="color: #031059">movie<br>management</span>
+                    </a>
+
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 mx-4">
+                        <%--<li><a href="/" class="nav-link px-3 text-secondary fw-bold">Home</a></li>--%>
+                        <li><a href="/film/printList.jsp" class="nav-link px-3 text-dark fw-bold">영화</a></li>
+                        <li><a href="/cinema/printList.jsp" class="nav-link px-3 text-dark fw-bold">극장</a></li>
+                        <li><a href="/screenInfo/printList.jsp" class="nav-link px-3 text-dark fw-bold">상영 정보</a></li>
+                    </ul>
+
+                    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                        <input type="search" class="form-control form-control-dark text-bg-light" placeholder="Search..." aria-label="Search">
+                    </form>
+                </div>
+            </div>
         </header>
         <div class="row my-5 align-items-center">
             <div class="row justify-content-center">
