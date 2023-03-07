@@ -51,7 +51,7 @@
                     <div class="row g-5">
                         <div class="col-md-8 mb-5">
                             <article class="blog-post">
-                                <h2 class="blog-post-title">회원 관리</h2>
+                                <h4 class="blog-post-title">회원 관리</h4>
                                 <hr>
                                 <table class="table table-striped">
                                     <thead>

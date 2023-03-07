@@ -74,6 +74,8 @@
 <div class="container-fluid">
     <div class="container">
         <%@include file="../header.jsp" %>
+        <h4>극장</h4>
+        <hr>
         <div class="rounded mb-3">
             <div class="container d-flex flex-wrap">
                 <ul class="nav me-auto" id="country-list">

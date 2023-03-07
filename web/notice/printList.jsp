@@ -82,6 +82,7 @@
         <%@include file="../header.jsp" %>
         <div>
             <h4>공지사항</h4>
+            <hr>
             <!-- search -->
             <div class="d-flex align-items-center mb-4 search-form">
                 <input type="search" id="cinema-search" name="cinema-search" class="form-control w-100"

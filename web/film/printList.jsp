@@ -72,6 +72,8 @@
 <div class="container-fluid">
     <div class="container">
         <%@include file="../header.jsp" %>
+        <h4>영화</h4>
+        <hr>
         <!-- search -->
         <div class="d-flex align-items-center mb-4 search-form">
             <input type="search" id="film-search" name="film-search" class="form-control w-100" placeholder="영화 제목 검색"
