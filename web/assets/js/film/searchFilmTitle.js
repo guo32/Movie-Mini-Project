@@ -1,6 +1,6 @@
 let search = () => {
     let text = $('#film-search').val();
-    if (text == '') {
+    if (text.trim() == '') {
         Swal.fire({
             icon: 'warning',
             text: '입력된 내용이 없습니다.',

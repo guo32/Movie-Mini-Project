@@ -76,6 +76,9 @@
                             loop: true,
 
                         },
+                        autoplay: {
+                            delay: 2500,
+                        },
                     });
                 </script>
             </c:otherwise>

@@ -32,6 +32,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="../assets/js/notice/changeNoticeList.js"></script>
+    <script src="../assets/js/notice/searchNoticeTitle.js"></script>
 </head>
 <body>
 <%
@@ -88,7 +89,7 @@
             <hr>
             <!-- search -->
             <div class="d-flex align-items-center mb-4 search-form">
-                <input type="search" id="cinema-search" name="cinema-search" class="form-control w-100"
+                <input type="search" id="notice-search" name="notice-search" class="form-control w-100"
                        placeholder="공지사항 검색"
                        onkeypress="if(event.keyCode==13) {search()}"/>
                 <button type="button" class="flex-shrink-0 dropdown btn" onclick="search()">
@@ -105,7 +106,7 @@
                     등록하기
                 </button>
             </c:if>
-            <div>
+            <div id="wrap-for-list">
                 <div>
                     <ul class="nav me-auto" id="ul-for-items">
                         <li id="item-0" class="nav-item me-1 rounded-top p-2" style="background-color: #e2e3e5;"

@@ -223,4 +223,33 @@ public class NoticeController {
 
         return noticeDTO;
     }
+
+    public ArrayList<NoticeDTO> searchNoticeTile(String search) {
+        ArrayList<NoticeDTO> list = new ArrayList<>();
+        String query = "SELECT * FROM `notice` WHERE `title` LIKE ? ORDER BY `id` DESC";
+
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, "%" + search + "%");
+
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                NoticeDTO noticeDTO = new NoticeDTO();
+                noticeDTO.setId(resultSet.getInt("id"));
+                noticeDTO.setWriter_id(resultSet.getInt("writer_id"));
+                noticeDTO.setCategory_id(resultSet.getInt("category_id"));
+                noticeDTO.setTitle(resultSet.getString("title"));
+                noticeDTO.setEntry_date(resultSet.getTimestamp("entry_date"));
+
+                list.add(noticeDTO);
+            }
+
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 }
