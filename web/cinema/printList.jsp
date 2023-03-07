@@ -117,10 +117,11 @@
                     </div>
                 </c:when>
                 <c:otherwise>
+                    <!-- list -->
                     <c:forEach var="cinema" items="${cinemaList}">
-                        <div class="row mb-2">
+                        <div class="row">
                             <div class="col mb-6">
-                                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-m d-250 position-relative">
+                                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-3 shadow-sm h-m d-250 position-relative">
                                     <div class="col p-3 d-flex flex-column position-static">
                                         <p class="card-text mb-auto text-muted"><b class="fs-5 mx-2 mt-1 text-dark">
                                                 ${cinema.name}</b> ${cinema.country} ${cinema.autonomous_district} ${cinema.detailed_address}

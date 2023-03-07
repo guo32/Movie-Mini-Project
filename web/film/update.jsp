@@ -32,6 +32,7 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script type="text/javascript" src="../resource/javascript/readImage.js"></script>
     <script type="text/javascript" src="../assets/js/film/register.js"></script>
+    <script src="../assets/js/checkDoubleSubmit.js"></script>
 </head>
 <body>
 <div class="container-fluid">

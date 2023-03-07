@@ -37,6 +37,19 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 </head>
+<script>
+    function checkDelete() {
+        Swal.fire({
+            icon: "warning",
+            text: "정말로 삭제하시겠습니까?",
+            showCancelButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = "/notice/delete.jsp?id=" + ${notice.id};
+            }
+        });
+    }
+</script>
 <body>
 <div class="container-fluid">
     <div class="container">
@@ -66,11 +79,11 @@
                             <fmt:formatDate value="${notice.entry_date}" pattern="YY.MM.dd"/>
                         </span>
                         <c:if test="${notice.modify_date != null}">
-                            <span class="vr"></span>
-                            <span class="text-secondary fw-light mx-1">수정일</span>
-                            <span>
-                            <fmt:formatDate value="${notice.modify_date}" pattern="YY.MM.dd"/>
-                        </span>
+                            <span class="vr mx-1"></span>
+                            <span class="text-secondary fw-light">수정일</span>
+                            <span class="mx-1">
+                                <fmt:formatDate value="${notice.modify_date}" pattern="YY.MM.dd"/>
+                            </span>
                         </c:if>
                     </td>
                 </tr>
