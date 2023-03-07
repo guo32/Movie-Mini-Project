@@ -151,4 +151,50 @@ public class NoticeController {
 
         return totalPage;
     }
+
+    public NoticeDTO selectPreviousByCurrentId(int id) {
+        NoticeDTO noticeDTO = null;
+        String query = "SELECT `id`, `title` FROM `notice` WHERE `id` > ? ORDER BY `id` ASC LIMIT 1";
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, id);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                noticeDTO = new NoticeDTO();
+                noticeDTO.setId(resultSet.getInt("id"));
+                noticeDTO.setTitle(resultSet.getString("title"));
+            }
+
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return noticeDTO;
+    }
+
+    public NoticeDTO selectNextByCurrentId(int id) {
+        NoticeDTO noticeDTO = null;
+        String query = "SELECT `id`, `title` FROM `notice` WHERE `id` < ? ORDER BY `id` DESC LIMIT 1";
+        try {
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, id);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                noticeDTO = new NoticeDTO();
+                noticeDTO.setId(resultSet.getInt("id"));
+                noticeDTO.setTitle(resultSet.getString("title"));
+            }
+
+            resultSet.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return noticeDTO;
+    }
 }
