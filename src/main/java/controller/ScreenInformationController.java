@@ -122,7 +122,7 @@ public class ScreenInformationController {
 
     public ArrayList<ScreenInformationDTO> selectAll() {
         ArrayList<ScreenInformationDTO> list = new ArrayList<>();
-        String query = "SELECT * FROM `screenInformation`";
+        String query = "SELECT * FROM `screenInformation` WHERE `start_time` >= now() ORDER BY `start_time` DESC";
 
         try {
             PreparedStatement pstmt = connection.prepareStatement(query);

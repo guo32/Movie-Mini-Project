@@ -27,6 +27,8 @@
     <link rel="stylesheet" type="text/css" href="/resource/css/main.css"/>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="../assets/js/checkDoubleSubmit.js"></script>
+    <script src="../assets/js/screenInfo/update.js"></script>
 </head>
 <body>
 <%
@@ -71,9 +73,9 @@
                 %>
             </c:when>
             <c:otherwise>
-                <h2 class="blog-post-title">
+                <h4 class="blog-post-title">
                     상영 정보 편집하기
-                </h2>
+                </h4>
                 <hr>
                 <div>
                     <c:choose>

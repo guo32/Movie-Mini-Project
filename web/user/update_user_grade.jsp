@@ -17,6 +17,13 @@
 </head>
 <body>
 <%
+    request.setCharacterEncoding("utf-8");
+
+    UserDTO login = (UserDTO) session.getAttribute("login");
+    if (login == null || login.getGrade() != 3) {
+        response.sendRedirect("../index.jsp");
+    }
+
     int id = Integer.parseInt(request.getParameter("id"));
 
     ConnectionMaker connectionMaker = new MySqlConnectionMaker();

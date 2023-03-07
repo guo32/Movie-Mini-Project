@@ -22,25 +22,25 @@
                 <h2 class="modal-title fs-5">상영 시간 편집</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/screenInfo/update_logic.jsp?id=${screenInfo.id}" method="post">
+            <form action="/screenInfo/update_logic.jsp?id=${screenInfo.id}" method="post" id="update-form">
                 <div class="modal-body">
                     <table class="col-12">
-                        <tr>
+                        <tr id="tr-for-start-time">
                             <td class="col-2">시작 시간</td>
                             <td>
-                                <input type="datetime-local" name="start_time" class="form-control"/>
+                                <input type="datetime-local" id="start_time" name="start_time" class="form-control" value="${screenInfo.start_time}"/>
                             </td>
                         </tr>
-                        <tr>
+                        <tr id="tr-for-end-time">
                             <td>종료 시간</td>
                             <td>
-                                <input type="datetime-local" name="end_time" class="form-control"/>
+                                <input type="datetime-local" id="end_time" name="end_time" class="form-control" value="${screenInfo.end_time}"/>
                             </td>
                         </tr>
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success btn-sm" data-bs-dismiss="modal">수정</button>
+                    <div class="btn btn-success btn-sm" onclick="submitForm()">수정</div>
                     <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">취소</button>
                 </div>
             </form>
